@@ -17,7 +17,10 @@ class DBOpenHelper(
      * @param db The database.
      */
     override fun onCreate(db: SQLiteDatabase?) {
-        TODO("Not yet implemented")
+        TODO("implement Preoco and Store table creation")
+        requireNotNull(db)
+
+        TDBGame(db).create()
     }
 
     /**
