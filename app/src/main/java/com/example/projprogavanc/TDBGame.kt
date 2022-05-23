@@ -21,7 +21,7 @@ class TDBGame(val db: SQLiteDatabase) {
     }
 
     /**
-     * Nome das colunas da tabela
+     * Nome das colunas da tabela Game
      */
     companion object{
 
