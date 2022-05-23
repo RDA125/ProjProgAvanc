@@ -21,6 +21,8 @@ class DBOpenHelper(
         requireNotNull(db)
 
         TDBGame(db).create()
+        TDBStore(db).create()
+
     }
 
     /**
