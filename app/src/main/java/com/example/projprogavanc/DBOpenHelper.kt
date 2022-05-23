@@ -17,11 +17,12 @@ class DBOpenHelper(
      * @param db The database.
      */
     override fun onCreate(db: SQLiteDatabase?) {
-        TODO("implement Preoco and Store table creation")
+
         requireNotNull(db)
 
         TDBGame(db).create()
         TDBStore(db).create()
+        TDBPreco(db).create()
 
     }
 
