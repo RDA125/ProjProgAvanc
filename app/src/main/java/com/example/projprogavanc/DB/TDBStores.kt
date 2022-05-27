@@ -16,7 +16,7 @@ class TDBStores (db: SQLiteDatabase) : TDB(db, T_NAME){
 
     override fun create(){
 
-        db.execSQL("create table $T_NAME (${BaseColumns._ID} Integer primary key autoincrement, $C_NAME text not null, $C_LOCAL Text not null ,$C_TYPE Text default ($DEFAULT) not null)")
+        db.execSQL("create table $T_NAME (${BaseColumns._ID} Integer primary key autoincrement, $C_NAME text not null, $C_LOCAL Text not null ,$C_TYPE Text default ('$DEFAULT') not null)")
 
     }
 
