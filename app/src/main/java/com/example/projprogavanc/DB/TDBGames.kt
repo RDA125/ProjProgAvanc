@@ -1,4 +1,4 @@
-package com.example.projprogavanc
+package com.example.projprogavanc.DB
 
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
@@ -9,12 +9,12 @@ import android.provider.BaseColumns
  * @param db Base de Dados a utilizar
  */
 
-class TDBGame(val db: SQLiteDatabase) {
+class TDBGames(db: SQLiteDatabase) : TDB(db, T_NAME) {
     /**
-     * criação a tabela Game
+     * criação da tabela Games
      */
 
-    fun create(){
+    override fun create(){
 
         db.execSQL("create table $T_NAME (${BaseColumns._ID} Integer primary key autoincrement, $C_NAME text not null, $C_TYPE Text default ($DEFAULT) not null)")
 
@@ -25,7 +25,7 @@ class TDBGame(val db: SQLiteDatabase) {
      */
     companion object{
 
-        const val T_NAME = "GAME"
+        const val T_NAME = "Games"
         const val C_NAME = "Name"
         const val C_TYPE = "Type"
         const val DEFAULT = "Digital"

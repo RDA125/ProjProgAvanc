@@ -1,15 +1,14 @@
-package com.example.projprogavanc
+package com.example.projprogavanc.DB
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.projprogavanc.DB.TDBGame_Store
+import com.example.projprogavanc.DB.TDBGames
+import com.example.projprogavanc.DB.TDBStores
 
-class DBOpenHelper(
-    context: Context?,
-    name: String?,
-    factory: SQLiteDatabase.CursorFactory?,
-    version: Int
-): SQLiteOpenHelper(context, name, factory, version) {
+class DBOpenHelper (context: Context?,
+): SQLiteOpenHelper(context, NAME, null, VERSION) {
     /**
      * Called when the database is created for the first time. This is where the
      * creation of tables and the initial population of the tables should happen.
@@ -20,9 +19,9 @@ class DBOpenHelper(
 
         requireNotNull(db)
 
-        TDBGame(db).create()
-        TDBStore(db).create()
-        TDBPreco(db).create()
+        TDBGames(db).create()
+        TDBStores(db).create()
+        TDBGame_Store(db).create()
 
     }
 
@@ -52,4 +51,9 @@ class DBOpenHelper(
         TODO("Not yet implemented")
     }
 
+    companion object{
+
+        const val NAME = "GameStore.db"
+        private const val VERSION = 1
+    }
 }
