@@ -134,4 +134,26 @@ class TestDataBase {
         db.close()
     }
 
+    @Test
+    fun AlterStoreTest(){
+
+        val db = getWritableDB()
+
+        val store = Store("Epic Games","N/A","Digital")
+        insertStore(db, store)
+
+        store.name = "GameStop"
+        store.local = "Blanchardstown Centre"
+        store.type = "Physical"
+
+        val alteredData = TDBStores(db).update(
+            store.toContentValues(),
+            "${BaseColumns._ID} = ?",
+            arrayOf("${store.id}")
+        )
+
+        assertEquals(1, alteredData)
+
+        db.close()
+    }
 }
