@@ -156,4 +156,41 @@ class TestDataBase {
 
         db.close()
     }
+
+    @Test
+    fun AlterGameStoreTest(){
+
+        val db = getWritableDB()
+
+        val game = Game("Super Meat Boy","Digital")
+        insertGame(db, game)
+
+        val game2 = Game("Hades","Digital")
+        insertGame(db, game2)
+
+        val store1 = Store("Steam","N/A","Digital")
+        insertStore(db, store1)
+
+        val store2 = Store("Epic Games","N/A","Digital")
+        insertStore(db, store2)
+
+        val gameStore = Game_Store(14.99, game.id, store1.id)
+        insertGameStore(db,gameStore)
+
+        val gameStore2 = Game_Store(14.99, game.id, store2.id)
+        insertGameStore(db,gameStore2)
+
+        gameStore2.preco = 19.99
+
+        val alteredData = TDBGame_Store(db).update(
+            gameStore2.toContentValues(),
+            "${TDBGame_Store.C_GAME_ID} = ? AND ${TDBGame_Store.C_STORE_ID} = ?",
+            arrayOf("${gameStore.game_id}","${gameStore2.store_id}")
+        )
+
+        assertEquals(1, alteredData)
+
+        db.close()
+
+    }
 }
