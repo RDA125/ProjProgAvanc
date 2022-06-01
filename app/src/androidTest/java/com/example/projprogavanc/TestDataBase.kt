@@ -3,9 +3,7 @@ package com.example.projprogavanc
 import android.database.sqlite.SQLiteDatabase
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.projprogavanc.DB.DBOpenHelper
-import com.example.projprogavanc.DB.Game
-import com.example.projprogavanc.DB.TDBGames
+import com.example.projprogavanc.DB.*
 import org.junit.After
 
 import org.junit.Test
@@ -32,6 +30,11 @@ class TestDataBase {
     private fun InsertGame(db: SQLiteDatabase, game: Game) {
         game.id = TDBGames(db).insert(game.toContentValues())
         assertNotEquals(-1, game.id)
+    }
+
+    private fun InsertStore(db: SQLiteDatabase, store: Store) {
+        store.id = TDBStores(db).insert(store.toContentValues())
+        assertNotEquals(-1, store.id)
     }
 
     @Before
@@ -61,5 +64,12 @@ class TestDataBase {
         db.close()
     }
 
+    @Test
+    fun InsertStore(){
+        val db = GetWritableDB()
 
+        InsertStore(db, Store("Steam","N/A","Digital"))
+
+        db.close()
+    }
 }
