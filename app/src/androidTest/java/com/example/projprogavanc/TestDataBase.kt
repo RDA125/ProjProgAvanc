@@ -1,6 +1,7 @@
 package com.example.projprogavanc
 
 import android.database.sqlite.SQLiteDatabase
+import android.provider.BaseColumns
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.projprogavanc.DB.*
@@ -104,4 +105,33 @@ class TestDataBase {
 
         db.close()
     }
+
+    /**
+     *
+     * Secção de Testes para a alteração de Game, Store e Game_Store
+     *
+     */
+
+    @Test
+    fun AlterGameTest(){
+
+        val db = getWritableDB()
+
+        val game = Game("Elder Rings","Physical")
+        insertGame(db, game)
+
+        game.name = "Elden Ring"
+        game.type = "Collectors Edition"
+
+        val alteredData = TDBGames(db).update(
+            game.toContentValues(),
+            "${BaseColumns._ID} = ?",
+            arrayOf("${game.id}")
+        )
+
+        assertEquals(1, alteredData)
+
+        db.close()
+    }
+
 }
