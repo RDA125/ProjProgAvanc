@@ -1,8 +1,12 @@
 package com.example.projprogavanc
 
+import android.database.sqlite.SQLiteDatabase
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.projprogavanc.DB.DBOpenHelper
+import com.example.projprogavanc.DB.Game
+import com.example.projprogavanc.DB.TDBGames
+import org.junit.After
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,6 +23,16 @@ import org.junit.Before
 class TestDataBase {
     fun appContext() = InstrumentationRegistry.getInstrumentation().targetContext
 
+    private fun GetWritableDB(): SQLiteDatabase {
+        val openHelper = DBOpenHelper(appContext())
+        return openHelper.writableDatabase
+
+    }
+
+    private fun InsertGame(db: SQLiteDatabase, game: Game) {
+        game.id = TDBGames(db).insert(game.toContentValues())
+        assertNotEquals(-1, game.id)
+    }
 
     @Before
     fun DeleteDataBase(){
@@ -37,4 +51,15 @@ class TestDataBase {
         db.close()
 
     }
+
+    @Test
+    fun InsertGame(){
+        val db = GetWritableDB()
+
+        InsertGame(db, Game("Doom","Digital"))
+
+        db.close()
+    }
+
+
 }

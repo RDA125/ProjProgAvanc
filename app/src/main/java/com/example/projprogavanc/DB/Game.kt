@@ -2,7 +2,7 @@ package com.example.projprogavanc.DB
 
 import android.content.ContentValues
 
-class Game(var id: Long, var name: String, var type: String) {
+class Game(var name: String, var type: String, var id: Long = -1) {
 
     fun toContentValues(): ContentValues{
 

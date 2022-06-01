@@ -2,7 +2,7 @@ package com.example.projprogavanc.DB
 
 import android.content.ContentValues
 
-class Store(var id: Long, var name: String, var local: String, var type: String) {
+class Store(var name: String, var local: String, var type: String, var id: Long = -1) {
 
     fun toContentValues(): ContentValues {
 
