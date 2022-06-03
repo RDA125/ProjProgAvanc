@@ -177,7 +177,7 @@ class TestDataBase {
         val gameStore = Game_Store(14.99, game.id, store1.id)
         insertGameStore(db,gameStore)
 
-        val gameStore2 = Game_Store(14.99, game.id, store2.id)
+        val gameStore2 = Game_Store(14.99, game2.id, store2.id)
         insertGameStore(db,gameStore2)
 
         gameStore2.preco = 19.99
