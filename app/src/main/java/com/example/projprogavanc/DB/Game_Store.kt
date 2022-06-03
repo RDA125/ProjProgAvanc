@@ -2,7 +2,16 @@ package com.example.projprogavanc.DB
 
 import android.content.ContentValues
 
-class Game_Store(var preco: Double,var game_id :Long, var store_id :Long ,var id: Long=-1) {
+/**
+ * Class para item do tipo Game_Store
+ *
+ * @param preco -> Preço do jogo dependendo da loja
+ * @param game_id -> Id do jogo da tabela Games
+ * @param store_id -> Id da loja da tabela Stores
+ *
+ */
+
+class Game_Store(var preco: Double,var game_id :Long, var store_id :Long) {
 
     fun toContentValues(): ContentValues {
 

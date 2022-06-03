@@ -21,7 +21,7 @@ class TDBStores (db: SQLiteDatabase) : TDB(db, T_NAME){
     }
 
     /**
-     * Nome das colunas da tabela Store
+     * Nome das colunas da tabela Stores
      */
     companion object{
 

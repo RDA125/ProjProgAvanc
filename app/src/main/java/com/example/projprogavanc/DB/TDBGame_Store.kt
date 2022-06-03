@@ -23,7 +23,7 @@ class TDBGame_Store (db: SQLiteDatabase): TDB(db, T_NAME){
     }
 
     /**
-     * Nome das colunas da tabela preco
+     * Nome das colunas da tabela Game_Store
      */
     companion object{
 

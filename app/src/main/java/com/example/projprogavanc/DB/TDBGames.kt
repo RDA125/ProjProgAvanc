@@ -21,7 +21,7 @@ class TDBGames(db: SQLiteDatabase) : TDB(db, T_NAME) {
     }
 
     /**
-     * Nome das colunas da tabela Game
+     * Nome das colunas da tabela Games
      */
     companion object{
 
