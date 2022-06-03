@@ -177,7 +177,7 @@ class TestDataBase {
         val gameStore = Game_Store(14.99, game.id, store1.id)
         insertGameStore(db,gameStore)
 
-        val gameStore2 = Game_Store(14.99, game2.id, store2.id)
+        val gameStore2 = Game_Store(14.99, game.id, store2.id)
         insertGameStore(db,gameStore2)
 
         gameStore2.preco = 19.99
@@ -185,7 +185,7 @@ class TestDataBase {
         val alteredData = TDBGame_Store(db).update(
             gameStore2.toContentValues(),
             "${TDBGame_Store.C_GAME_ID} = ? AND ${TDBGame_Store.C_STORE_ID} = ?",
-            arrayOf("${gameStore.game_id}","${gameStore2.store_id}")
+            arrayOf("${gameStore2.game_id}","${gameStore2.store_id}")
         )
 
         assertEquals(1, alteredData)
