@@ -11,7 +11,7 @@ import android.content.ContentValues
  *
  */
 
-class Game_Store(var preco: Double,var game_id :Long, var store_id :Long, var id : Long = -1) {
+data class Game_Store(var preco: Double,var game_id :Long, var store_id :Long, var id : Long = -1) {
 
     fun toContentValues(): ContentValues {
 

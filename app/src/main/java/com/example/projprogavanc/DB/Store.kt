@@ -12,7 +12,7 @@ import android.content.ContentValues
  *
  */
 
-class Store(var name: String, var local: String, var type: String, var id: Long = -1) {
+data class Store(var name: String, var local: String, var type: String, var id: Long = -1) {
 
     fun toContentValues(): ContentValues {
 
