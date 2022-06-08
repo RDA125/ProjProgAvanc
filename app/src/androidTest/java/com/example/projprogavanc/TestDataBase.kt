@@ -193,4 +193,29 @@ class TestDataBase {
         db.close()
 
     }
+
+    /**
+     *
+     * Secção de Testes para a eliminação de Game, Store e Game_Store
+     *
+     */
+
+    @Test
+    fun DeleteGameTest(){
+        val db = getWritableDB()
+
+        val game = Game("Doom","Digital")
+        insertGame(db, game)
+
+        val deletedData = TDBGames(db).delete(
+            "${BaseColumns._ID} = ?",
+            arrayOf("${game.id}")
+        )
+
+        assertEquals(1, deletedData)
+
+        db.close()
+    }
+
+
 }
