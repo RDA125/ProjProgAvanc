@@ -276,7 +276,23 @@ class TestDataBase {
         val game = Game("Doom","Digital")
         insertGame(db, game)
 
+        val cursor = TDBGames(db).query(
+            TDBGames.ALL_COLUMNS,
+            "${BaseColumns._ID} = ?",
+            arrayOf("${game.id}"),
+            null,
+            null,
+            null
 
+        )
+
+        assertEquals(1, cursor.count)
+
+        assertTrue(cursor.moveToNext())
+
+        val gameDB = Game.fromCursor(cursor)
+
+        assertEquals(game, gameDB)
 
         db.close()
     }

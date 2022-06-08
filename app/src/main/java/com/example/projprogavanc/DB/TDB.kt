@@ -20,7 +20,7 @@ abstract class TDB (val db: SQLiteDatabase, val name: String){
         db.delete(name, whereClause,whereArgs)
 
 
-    fun query(columns: Array<String>, selection: String, selectionArgs: Array<String>, groupBy: String, having: String, orderBy: String) =
+    fun query(columns: Array<String>, selection: String?, selectionArgs: Array<String>?, groupBy: String?, having: String?, orderBy: String?) =
         db.query(name, columns, selection, selectionArgs, groupBy, having, orderBy)
 
 }
