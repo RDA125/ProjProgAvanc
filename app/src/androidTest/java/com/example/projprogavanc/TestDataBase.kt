@@ -217,5 +217,23 @@ class TestDataBase {
         db.close()
     }
 
+    @Test
+    fun DeleteStoreTest(){
+
+        val db = getWritableDB()
+
+        val store = Store("Epic Games","N/A","Digital")
+        insertStore(db, store)
+
+        val deletedData = TDBStores(db).delete(
+            "${BaseColumns._ID} = ?",
+            arrayOf("${store.id}")
+        )
+
+        assertEquals(1, deletedData)
+
+        db.close()
+    }
+
 
 }
