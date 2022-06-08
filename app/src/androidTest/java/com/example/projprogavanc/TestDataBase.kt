@@ -261,4 +261,23 @@ class TestDataBase {
         db.close()
 
     }
+
+    /**
+     *
+     * Secção de Testes para a leitura de Game, Store e Game_Store
+     *
+     */
+
+    @Test
+    fun QueryGameTest(){
+
+        val db = getWritableDB()
+
+        val game = Game("Doom","Digital")
+        insertGame(db, game)
+
+
+
+        db.close()
+    }
 }

@@ -1,6 +1,8 @@
 package com.example.projprogavanc.DB
 
 import android.content.ContentValues
+import android.database.Cursor
+import android.provider.BaseColumns
 
 /**
  * Class para item do tipo Game
@@ -20,6 +22,22 @@ data class Game(var name: String, var type: String, var id: Long = -1) {
         values.put(TDBGames.C_TYPE, type)
 
         return values
+
+    }
+
+    companion object{
+        fun fromCursor(cursor: Cursor):Game{
+
+            val posId = cursor.getColumnIndex(BaseColumns._ID)
+            val posName = cursor.getColumnIndex(TDBGames.C_NAME)
+            val posType = cursor.getColumnIndex(TDBGames.C_TYPE)
+
+            val id = cursor.getLong(posId)
+            val name = cursor.getString(posName)
+            val type = cursor.getString(posType)
+
+            return Game(name,type,id)
+        }
 
     }
 
