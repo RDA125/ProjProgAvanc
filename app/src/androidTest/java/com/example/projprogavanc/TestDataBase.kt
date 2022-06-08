@@ -235,5 +235,30 @@ class TestDataBase {
         db.close()
     }
 
+    @Test
+    fun deleteGameStoreTest(){
 
+        val db = getWritableDB()
+
+        val game = Game("Don't Starve","Digital")
+        insertGame(db, game)
+
+        val store1 = Store("Steam","N/A","Digital")
+        insertStore(db, store1)
+
+
+        val gameStore = Game_Store(8.19, game.id, store1.id)
+        insertGameStore(db,gameStore)
+
+
+        val deletedData = TDBGame_Store(db).delete(
+            "${TDBGame_Store.C_GAME_ID} = ? AND ${TDBGame_Store.C_STORE_ID} = ?",
+            arrayOf("${gameStore.game_id}","${gameStore.store_id}")
+        )
+
+        assertEquals(1, deletedData)
+
+        db.close()
+
+    }
 }
