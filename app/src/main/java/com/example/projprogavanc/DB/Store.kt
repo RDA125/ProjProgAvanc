@@ -1,6 +1,8 @@
 package com.example.projprogavanc.DB
 
 import android.content.ContentValues
+import android.database.Cursor
+import android.provider.BaseColumns
 
 /**
  * Class para item do tipo Store
@@ -25,4 +27,21 @@ data class Store(var name: String, var local: String, var type: String, var id: 
 
     }
 
+    companion object{
+        fun fromCursor(cursor: Cursor):Store{
+
+            val posId = cursor.getColumnIndex(BaseColumns._ID)
+            val posName = cursor.getColumnIndex(TDBStores.C_NAME)
+            val posLocal = cursor.getColumnIndex(TDBStores.C_LOCAL)
+            val posType = cursor.getColumnIndex(TDBStores.C_TYPE)
+
+            val id = cursor.getLong(posId)
+            val name = cursor.getString(posName)
+            val local = cursor.getString(posLocal)
+            val type = cursor.getString(posType)
+
+            return Store(name,local,type,id)
+        }
+
+    }
 }
