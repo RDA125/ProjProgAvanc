@@ -28,5 +28,7 @@ class TDBGames(db: SQLiteDatabase) : TDB(db, T_NAME) {
         const val T_NAME = "Games"
         const val C_NAME = "Name"
         const val C_TYPE = "Type"
+
+        val ALL_COLUMNS = arrayOf(BaseColumns._ID, C_NAME, C_TYPE)
     }
 }

@@ -32,5 +32,6 @@ class TDBGame_Store (db: SQLiteDatabase): TDB(db, T_NAME){
         const val C_GAME_ID = "Game_Id"
         const val C_STORE_ID = "Store_id"
 
+        val ALL_COLUMNS = arrayOf(C_GAME_ID, C_STORE_ID, C_PRECO)
     }
 }

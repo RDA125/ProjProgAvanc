@@ -29,5 +29,7 @@ class TDBStores (db: SQLiteDatabase) : TDB(db, T_NAME){
         const val C_NAME = "Name"
         const val C_LOCAL = "Local"
         const val C_TYPE = "Type"
+
+        val ALL_COLUMNS = arrayOf(BaseColumns._ID, C_NAME, C_LOCAL, C_TYPE)
     }
 }
