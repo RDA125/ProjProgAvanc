@@ -50,14 +50,14 @@ class TestDataBase {
     }
 
     @Before
-    fun deleteDataBase(){
+    fun deleteDataBase() {
 
         appContext().deleteDatabase(DBOpenHelper.NAME)
 
     }
 
     @Test
-    fun openDB_Test(){
+    fun openDB_Test() {
 
         val openHelper = DBOpenHelper(appContext())
         val db = openHelper.readableDatabase
@@ -73,35 +73,35 @@ class TestDataBase {
      *
      */
     @Test
-    fun insertGameTest(){
+    fun insertGameTest() {
         val db = getWritableDB()
 
-        insertGame(db, Game("Doom","Digital"))
+        insertGame(db, Game("Doom", "Digital"))
 
         db.close()
     }
 
     @Test
-    fun insertStoreTest(){
+    fun insertStoreTest() {
         val db = getWritableDB()
 
-        insertStore(db, Store("Steam","N/A","Digital"))
+        insertStore(db, Store("Steam", "N/A", "Digital"))
 
         db.close()
     }
 
     @Test
-    fun insertGame_StoreTest(){
+    fun insertGame_StoreTest() {
         val db = getWritableDB()
 
-        val game = Game("Bioshock","Digital")
+        val game = Game("Bioshock", "Digital")
         insertGame(db, game)
 
-        val store = Store("Epic Games","N/A","Digital")
+        val store = Store("Epic Games", "N/A", "Digital")
         insertStore(db, store)
 
         val gameStore = Game_Store(29.99, game.id, store.id)
-        insertGameStore(db,gameStore)
+        insertGameStore(db, gameStore)
 
         db.close()
     }
@@ -113,11 +113,11 @@ class TestDataBase {
      */
 
     @Test
-    fun AlterGameTest(){
+    fun AlterGameTest() {
 
         val db = getWritableDB()
 
-        val game = Game("Elder Rings","Physical")
+        val game = Game("Elder Rings", "Physical")
         insertGame(db, game)
 
         game.name = "Elden Ring"
@@ -135,11 +135,11 @@ class TestDataBase {
     }
 
     @Test
-    fun AlterStoreTest(){
+    fun AlterStoreTest() {
 
         val db = getWritableDB()
 
-        val store = Store("Epic Games","N/A","Digital")
+        val store = Store("Epic Games", "N/A", "Digital")
         insertStore(db, store)
 
         store.name = "GameStop"
@@ -158,34 +158,34 @@ class TestDataBase {
     }
 
     @Test
-    fun AlterGameStoreTest(){
+    fun AlterGameStoreTest() {
 
         val db = getWritableDB()
 
-        val game = Game("Super Meat Boy","Digital")
+        val game = Game("Super Meat Boy", "Digital")
         insertGame(db, game)
 
-        val game2 = Game("Hades","Digital")
+        val game2 = Game("Hades", "Digital")
         insertGame(db, game2)
 
-        val store1 = Store("Steam","N/A","Digital")
+        val store1 = Store("Steam", "N/A", "Digital")
         insertStore(db, store1)
 
-        val store2 = Store("Epic Games","N/A","Digital")
+        val store2 = Store("Epic Games", "N/A", "Digital")
         insertStore(db, store2)
 
         val gameStore = Game_Store(14.99, game.id, store1.id)
-        insertGameStore(db,gameStore)
+        insertGameStore(db, gameStore)
 
         val gameStore2 = Game_Store(14.99, game.id, store2.id)
-        insertGameStore(db,gameStore2)
+        insertGameStore(db, gameStore2)
 
         gameStore2.preco = 19.99
 
         val alteredData = TDBGame_Store(db).update(
             gameStore2.toContentValues(),
             "${TDBGame_Store.C_GAME_ID} = ? AND ${TDBGame_Store.C_STORE_ID} = ?",
-            arrayOf("${gameStore2.game_id}","${gameStore2.store_id}")
+            arrayOf("${gameStore2.game_id}", "${gameStore2.store_id}")
         )
 
         assertEquals(1, alteredData)
@@ -201,10 +201,10 @@ class TestDataBase {
      */
 
     @Test
-    fun DeleteGameTest(){
+    fun DeleteGameTest() {
         val db = getWritableDB()
 
-        val game = Game("Doom","Digital")
+        val game = Game("Doom", "Digital")
         insertGame(db, game)
 
         val deletedData = TDBGames(db).delete(
@@ -218,11 +218,11 @@ class TestDataBase {
     }
 
     @Test
-    fun DeleteStoreTest(){
+    fun DeleteStoreTest() {
 
         val db = getWritableDB()
 
-        val store = Store("Epic Games","N/A","Digital")
+        val store = Store("Epic Games", "N/A", "Digital")
         insertStore(db, store)
 
         val deletedData = TDBStores(db).delete(
@@ -236,24 +236,24 @@ class TestDataBase {
     }
 
     @Test
-    fun deleteGameStoreTest(){
+    fun deleteGameStoreTest() {
 
         val db = getWritableDB()
 
-        val game = Game("Don't Starve","Digital")
+        val game = Game("Don't Starve", "Digital")
         insertGame(db, game)
 
-        val store1 = Store("Steam","N/A","Digital")
+        val store1 = Store("Steam", "N/A", "Digital")
         insertStore(db, store1)
 
 
         val gameStore = Game_Store(8.19, game.id, store1.id)
-        insertGameStore(db,gameStore)
+        insertGameStore(db, gameStore)
 
 
         val deletedData = TDBGame_Store(db).delete(
             "${TDBGame_Store.C_GAME_ID} = ? AND ${TDBGame_Store.C_STORE_ID} = ?",
-            arrayOf("${gameStore.game_id}","${gameStore.store_id}")
+            arrayOf("${gameStore.game_id}", "${gameStore.store_id}")
         )
 
         assertEquals(1, deletedData)
@@ -269,11 +269,11 @@ class TestDataBase {
      */
 
     @Test
-    fun QueryGameTest(){
+    fun QueryGameTest() {
 
         val db = getWritableDB()
 
-        val game = Game("Doom","Digital")
+        val game = Game("Borderlands", "Digital")
         insertGame(db, game)
 
         val cursor = TDBGames(db).query(
@@ -296,4 +296,34 @@ class TestDataBase {
 
         db.close()
     }
+
+    @Test
+    fun QueryStoreTest() {
+
+        val db = getWritableDB()
+
+        val store = Store("Kinguin", "N/A", "Digital")
+        insertStore(db, store)
+
+        val cursor = TDBStores(db).query(
+            TDBStores.ALL_COLUMNS,
+            "${BaseColumns._ID} = ?",
+            arrayOf("${store.id}"),
+            null,
+            null,
+            null
+
+        )
+
+        assertEquals(1, cursor.count)
+
+        assertTrue(cursor.moveToNext())
+
+        val storeDB = Store.fromCursor(cursor)
+
+        assertEquals(store, storeDB)
+
+        db.close()
+    }
+
 }
