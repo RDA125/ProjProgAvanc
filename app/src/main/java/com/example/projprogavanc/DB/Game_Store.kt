@@ -13,7 +13,7 @@ import android.provider.BaseColumns
  *
  */
 
-data class Game_Store(var preco: Double,var game_id :Long, var store_id :Long, var id : Long = -1) {
+data class Game_Store(var preco: Double,var game_id :Long, var store_id :Long) {
 
     fun toContentValues(): ContentValues {
 
@@ -29,17 +29,15 @@ data class Game_Store(var preco: Double,var game_id :Long, var store_id :Long, v
     companion object{
         fun fromCursor(cursor: Cursor):Game_Store{
 
-            val posId = cursor.getColumnIndex(BaseColumns._ID)
             val posPrice = cursor.getColumnIndex(TDBGame_Store.C_PRECO)
             val posGameId = cursor.getColumnIndex(TDBGame_Store.C_GAME_ID)
             val posStoreId = cursor.getColumnIndex(TDBGame_Store.C_STORE_ID)
 
-            val id = cursor.getLong(posId)
             val price = cursor.getDouble(posPrice)
             val gameId = cursor.getLong(posGameId)
             val storeId = cursor.getLong(posStoreId)
 
-            return Game_Store(price,gameId,storeId,id)
+            return Game_Store(price,gameId,storeId)
         }
 
     }

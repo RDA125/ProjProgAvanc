@@ -45,8 +45,8 @@ class TestDataBase {
     }
 
     private fun insertGameStore(db: SQLiteDatabase, gameStore: Game_Store) {
-        gameStore.id = TDBGame_Store(db).insert(gameStore.toContentValues())
-        assertNotEquals(-1, gameStore.id)
+        val GameStore = TDBGame_Store(db).insert(gameStore.toContentValues())
+        assertNotEquals(-1,GameStore)
     }
 
     @Before
@@ -322,6 +322,42 @@ class TestDataBase {
         val storeDB = Store.fromCursor(cursor)
 
         assertEquals(store, storeDB)
+
+        db.close()
+    }
+
+    @Test
+    fun QueryGameStoreTest(){
+
+        val db = getWritableDB()
+
+        val game = Game("Unpacking","Digital")
+        insertGame(db, game)
+
+        val store = Store("Steam","N/A","Digital")
+        insertStore(db, store)
+
+
+        val gameStore = Game_Store(19.99, game.id, store.id)
+        insertGameStore(db,gameStore)
+
+        val cursor = TDBGame_Store(db).query(
+            TDBGame_Store.ALL_COLUMNS,
+            "${TDBGame_Store.C_GAME_ID} = ? AND ${TDBGame_Store.C_STORE_ID} = ?",
+            arrayOf("${gameStore.game_id}","${gameStore.store_id}"),
+            null,
+            null,
+            null
+
+        )
+
+        assertEquals(1, cursor.count)
+
+        assertTrue(cursor.moveToNext())
+
+        val GameStoreDB = Game_Store.fromCursor(cursor)
+
+        assertEquals(gameStore, GameStoreDB)
 
         db.close()
     }
