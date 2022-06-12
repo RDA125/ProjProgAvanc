@@ -22,6 +22,7 @@ class DBOpenHelper (context: Context?,
         TDBGames(db).create()
         TDBStores(db).create()
         TDBGame_Store(db).create()
+        TDBTypes(db).create()
 
     }
 

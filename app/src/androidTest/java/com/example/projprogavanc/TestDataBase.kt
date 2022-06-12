@@ -48,6 +48,10 @@ class TestDataBase {
         val GameStore = TDBGame_Store(db).insert(gameStore.toContentValues())
         assertNotEquals(-1,GameStore)
     }
+    private fun insertType(db: SQLiteDatabase, type: Type) {
+        type.id = TDBTypes(db).insert(type.toContentValues())
+        assertNotEquals(-1, type.id)
+    }
 
     @Before
     fun deleteDataBase() {
@@ -65,6 +69,89 @@ class TestDataBase {
         assertTrue(db.isOpen)
         db.close()
 
+    }
+
+    /**
+     *
+     * Secção de Testes para a tabela Types
+     *
+     */
+
+    @Test
+    fun InsertTypeTest(){
+
+        val db = getWritableDB()
+
+        insertType(db,Type("Digital"))
+
+        db.close()
+    }
+
+    @Test
+    fun AlterTypeTest() {
+
+        val db = getWritableDB()
+
+        val type = Type("Physical")
+        insertType(db, type)
+
+        type.type = "Collectors Edition"
+
+        val alteredData = TDBTypes(db).update(
+            type.toContentValues(),
+            "${BaseColumns._ID} = ?",
+            arrayOf("${type.id}")
+        )
+
+        assertEquals(1, alteredData)
+
+        db.close()
+    }
+
+    @Test
+    fun DeleteTypeTest() {
+        val db = getWritableDB()
+
+        val type = Type("Collectors Edition")
+        insertType(db, type)
+
+        val deletedData = TDBTypes(db).delete(
+            "${BaseColumns._ID} = ?",
+            arrayOf("${type.id}")
+        )
+
+        assertEquals(1, deletedData)
+
+        db.close()
+    }
+
+    @Test
+    fun QueryTypeTest() {
+
+        val db = getWritableDB()
+
+        val type = Type("Pre-order")
+        insertType(db, type)
+
+        val cursor = TDBTypes(db).query(
+            TDBTypes.ALL_COLUMNS,
+            "${BaseColumns._ID} = ?",
+            arrayOf("${type.id}"),
+            null,
+            null,
+            null
+
+        )
+
+        assertEquals(1, cursor.count)
+
+        assertTrue(cursor.moveToNext())
+
+        val typeDB = Type.fromCursor(cursor)
+
+        assertEquals(type, typeDB)
+
+        db.close()
     }
 
     /**
