@@ -4,7 +4,6 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
-import android.database.sqlite.SQLiteOpenHelper
 import android.net.Uri
 import android.provider.BaseColumns
 
@@ -134,8 +133,8 @@ class ContentProviderGame_Store: ContentProvider() {
             URI_GAME_STORES -> TDBGame_Store(db).query(columns, selection, selArgs, null, null, sortOrder)
             URI_GAME_SPECIFIC -> TDBGames(db).query(columns, "${BaseColumns._ID} = ?", arrayOf("${id}"), null, null, null)
             URI_STORE_SPECIFIC -> TDBStores(db).query(columns, "${BaseColumns._ID} = ?", arrayOf("${id}"), null, null, null)
-            URI_GAME_STORE_SPECIFIC -> TDBStores(db).query(columns, "rowid = ?", arrayOf("${id}"), null, null, null)
-            URI_GAME_STORES_SPECIFIC -> TDBStores(db).query(columns, selection, selArgs, null, null, sortOrder)
+            URI_GAME_STORE_SPECIFIC -> TDBGame_Store(db).query(columns, "rowid = ?", arrayOf("${id}"), null, null, null)
+            URI_GAME_STORES_SPECIFIC -> TDBGame_Store(db).query(columns, selection, selArgs, null, null, sortOrder)
             URI_TYPES -> TDBTypes(db).query(columns, selection, selArgs, null, null, sortOrder)
             URI_TYPE_SPECIFIC -> TDBTypes(db).query(columns, "${BaseColumns._ID} = ?", arrayOf("${id}"), null, null, null)
             else -> null
@@ -245,7 +244,21 @@ class ContentProviderGame_Store: ContentProvider() {
      * @throws SQLException
      */
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
-        TODO("Not yet implemented")
+        val db = dbOpenHelper!!.writableDatabase
+
+        val id = uri.lastPathSegment
+
+        val DeletedEntries = when(getUriMatcher().match(uri)){
+
+            URI_GAME_SPECIFIC -> TDBGames(db).delete("${BaseColumns._ID} = ?", arrayOf("${id}"))
+            URI_STORE_SPECIFIC -> TDBStores(db).delete("${BaseColumns._ID} = ?", arrayOf("${id}"))
+            URI_GAME_STORE_SPECIFIC -> TDBGame_Store(db).delete("rowid = ?", arrayOf("${id}"))
+            else -> 0
+        }
+
+        db.close()
+
+        return DeletedEntries
     }
 
     /**
