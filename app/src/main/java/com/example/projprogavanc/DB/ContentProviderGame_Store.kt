@@ -196,10 +196,29 @@ class ContentProviderGame_Store: ContentProvider() {
      * @return The URI for the newly inserted item.
      */
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
-        TODO("Not yet implemented")
 
+        val db = dbOpenHelper!!.writableDatabase
 
+        requireNotNull(values)
 
+        val id = when(getUriMatcher().match(uri)){
+
+            URI_GAMES -> TDBGames(db).insert(values)
+            URI_STORES -> TDBStores(db).insert(values)
+            URI_GAME_STORES -> TDBGame_Store(db).insert(values)
+            else -> -1
+
+        }
+
+        db.close()
+
+        if(id == -1L){
+
+            return null
+
+        }
+
+        return Uri.withAppendedPath(uri, "$id")
     }
 
     /**
