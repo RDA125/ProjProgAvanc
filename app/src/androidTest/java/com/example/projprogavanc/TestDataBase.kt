@@ -45,11 +45,16 @@ class TestDataBase {
     }
 
     private fun insertGameStore(db: SQLiteDatabase, gameStore: Game_Store) {
-        val GameStore = TDBGame_Store(db).insert(gameStore.toContentValues())
-        assertNotEquals(-1,GameStore)
+        val gameStore = TDBGame_Store(db).insert(gameStore.toContentValues())
+        assertNotEquals(-1,gameStore)
     }
-    private fun insertType(db: SQLiteDatabase, type: Type) {
-        type.id = TDBTypes(db).insert(type.toContentValues())
+    private fun insertGameType(db: SQLiteDatabase, type: GameType) {
+        type.id = TDBStoreTypes(db).insert(type.toContentValues())
+        assertNotEquals(-1, type.id)
+    }
+
+    private fun insertStoreType(db: SQLiteDatabase, type: StoreType) {
+        type.id = TDBStoreTypes(db).insert(type.toContentValues())
         assertNotEquals(-1, type.id)
     }
 
@@ -82,7 +87,7 @@ class TestDataBase {
 
         val db = getWritableDB()
 
-        insertType(db,Type("Digital"))
+        insertGameType(db,GameType("Digital"))
 
         db.close()
     }
@@ -92,12 +97,12 @@ class TestDataBase {
 
         val db = getWritableDB()
 
-        val type = Type("Physical")
-        insertType(db, type)
+        val type = GameType("Physical")
+        insertGameType(db, type)
 
         type.type = "Collectors Edition"
 
-        val alteredData = TDBTypes(db).update(
+        val alteredData = TDBStoreTypes(db).update(
             type.toContentValues(),
             "${BaseColumns._ID} = ?",
             arrayOf("${type.id}")
@@ -112,10 +117,10 @@ class TestDataBase {
     fun DeleteTypeTest() {
         val db = getWritableDB()
 
-        val type = Type("Collectors Edition")
-        insertType(db, type)
+        val type = GameType("Collectors Edition")
+        insertGameType(db, type)
 
-        val deletedData = TDBTypes(db).delete(
+        val deletedData = TDBStoreTypes(db).delete(
             "${BaseColumns._ID} = ?",
             arrayOf("${type.id}")
         )
@@ -130,11 +135,11 @@ class TestDataBase {
 
         val db = getWritableDB()
 
-        val type = Type("Pre-order")
-        insertType(db, type)
+        val type = StoreType("Pre-order")
+        insertStoreType(db, type)
 
-        val cursor = TDBTypes(db).query(
-            TDBTypes.ALL_COLUMNS,
+        val cursor = TDBStoreTypes(db).query(
+            TDBStoreTypes.ALL_COLUMNS,
             "${BaseColumns._ID} = ?",
             arrayOf("${type.id}"),
             null,
@@ -147,7 +152,7 @@ class TestDataBase {
 
         assertTrue(cursor.moveToNext())
 
-        val typeDB = Type.fromCursor(cursor)
+        val typeDB = StoreType.fromCursor(cursor)
 
         assertEquals(type, typeDB)
 
@@ -163,7 +168,9 @@ class TestDataBase {
     fun insertGameTest() {
         val db = getWritableDB()
 
-        insertGame(db, Game("Doom", "Digital"))
+        val GameType =GameType("Digital")
+        insertGameType(db,GameType)
+        insertGame(db, Game("Doom", GameType.id))
 
         db.close()
     }
@@ -171,8 +178,9 @@ class TestDataBase {
     @Test
     fun insertStoreTest() {
         val db = getWritableDB()
-
-        insertStore(db, Store("Steam", "N/A", "Digital"))
+        val StoreType =GameType("Digital")
+        insertGameType(db,StoreType)
+        insertStore(db, Store("Steam", "N/A", StoreType.id))
 
         db.close()
     }
@@ -181,10 +189,16 @@ class TestDataBase {
     fun insertGame_StoreTest() {
         val db = getWritableDB()
 
-        val game = Game("Bioshock", "Digital")
+        val GameType =GameType("Digital")
+        insertGameType(db,GameType)
+
+        val game = Game("Bioshock", GameType.id)
         insertGame(db, game)
 
-        val store = Store("Epic Games", "N/A", "Digital")
+        val StoreType =GameType("Digital")
+        insertGameType(db,StoreType)
+
+        val store = Store("Epic Games", "N/A", StoreType.id)
         insertStore(db, store)
 
         val gameStore = Game_Store(29.99, game.id, store.id)
@@ -204,11 +218,17 @@ class TestDataBase {
 
         val db = getWritableDB()
 
-        val game = Game("Elder Rings", "Physical")
+        val GameType1 =GameType("Physical")
+        insertGameType(db,GameType1)
+
+        val GameType2 =GameType("Collectors Edition")
+        insertGameType(db,GameType2)
+
+        val game = Game("Elder Rings", GameType1.id)
         insertGame(db, game)
 
         game.name = "Elden Ring"
-        game.type = "Collectors Edition"
+        game.type = GameType2.id
 
         val alteredData = TDBGames(db).update(
             game.toContentValues(),
@@ -226,12 +246,18 @@ class TestDataBase {
 
         val db = getWritableDB()
 
-        val store = Store("Epic Games", "N/A", "Digital")
+        val StoreType1 =GameType("Digital")
+        insertGameType(db,StoreType1)
+
+        val StoreType2 =GameType("Physical")
+        insertGameType(db,StoreType2)
+
+        val store = Store("Epic Games", "N/A", StoreType1.id)
         insertStore(db, store)
 
         store.name = "GameStop"
-        store.local = "Blanchardstown Centre"
-        store.type = "Physical"
+        store.address = "Blanchardstown Centre"
+        store.type = StoreType2.id
 
         val alteredData = TDBStores(db).update(
             store.toContentValues(),
@@ -249,16 +275,22 @@ class TestDataBase {
 
         val db = getWritableDB()
 
-        val game = Game("Super Meat Boy", "Digital")
+        val StoreType =GameType("Digital")
+        insertGameType(db,StoreType)
+
+        val GameType =GameType("Digital")
+        insertGameType(db,GameType)
+
+        val game = Game("Super Meat Boy", GameType.id)
         insertGame(db, game)
 
-        val game2 = Game("Hades", "Digital")
+        val game2 = Game("Hades",  GameType.id)
         insertGame(db, game2)
 
-        val store1 = Store("Steam", "N/A", "Digital")
+        val store1 = Store("Steam", "N/A", StoreType.id)
         insertStore(db, store1)
 
-        val store2 = Store("Epic Games", "N/A", "Digital")
+        val store2 = Store("Epic Games", "N/A", StoreType.id)
         insertStore(db, store2)
 
         val gameStore = Game_Store(14.99, game.id, store1.id)
@@ -291,7 +323,10 @@ class TestDataBase {
     fun DeleteGameTest() {
         val db = getWritableDB()
 
-        val game = Game("Doom", "Digital")
+        val GameType =GameType("Digital")
+        insertGameType(db,GameType)
+
+        val game = Game("Doom", GameType.id)
         insertGame(db, game)
 
         val deletedData = TDBGames(db).delete(
@@ -309,7 +344,10 @@ class TestDataBase {
 
         val db = getWritableDB()
 
-        val store = Store("Epic Games", "N/A", "Digital")
+        val StoreType =GameType("Digital")
+        insertGameType(db,StoreType)
+
+        val store = Store("Epic Games", "N/A", StoreType.id)
         insertStore(db, store)
 
         val deletedData = TDBStores(db).delete(
@@ -327,10 +365,16 @@ class TestDataBase {
 
         val db = getWritableDB()
 
-        val game = Game("Don't Starve", "Digital")
+        val GameType =GameType("Digital")
+        insertGameType(db,GameType)
+
+        val StoreType =GameType("Digital")
+        insertGameType(db,StoreType)
+
+        val game = Game("Don't Starve", GameType.id)
         insertGame(db, game)
 
-        val store1 = Store("Steam", "N/A", "Digital")
+        val store1 = Store("Steam", "N/A", StoreType.id)
         insertStore(db, store1)
 
 
@@ -359,8 +403,10 @@ class TestDataBase {
     fun QueryGameTest() {
 
         val db = getWritableDB()
+        val GameType =GameType("Digital")
+        insertGameType(db,GameType)
 
-        val game = Game("Borderlands", "Digital")
+        val game = Game("Borderlands", GameType.id)
         insertGame(db, game)
 
         val cursor = TDBGames(db).query(
@@ -389,7 +435,10 @@ class TestDataBase {
 
         val db = getWritableDB()
 
-        val store = Store("Kinguin", "N/A", "Digital")
+        val StoreType =GameType("Digital")
+        insertGameType(db,StoreType)
+
+        val store = Store("Kinguin", "N/A", StoreType.id)
         insertStore(db, store)
 
         val cursor = TDBStores(db).query(
@@ -418,12 +467,17 @@ class TestDataBase {
 
         val db = getWritableDB()
 
-        val game = Game("Unpacking","Digital")
+        val GameType =GameType("Digital")
+        insertGameType(db,GameType)
+
+        val StoreType =GameType("Digital")
+        insertGameType(db,StoreType)
+
+        val game = Game("Unpacking",GameType.id)
         insertGame(db, game)
 
-        val store = Store("Steam","N/A","Digital")
+        val store = Store("Steam","N/A",StoreType.id)
         insertStore(db, store)
-
 
         val gameStore = Game_Store(19.99, game.id, store.id)
         insertGameStore(db,gameStore)

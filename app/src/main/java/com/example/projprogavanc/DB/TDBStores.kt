@@ -16,7 +16,7 @@ class TDBStores (db: SQLiteDatabase) : TDB(db, T_NAME){
 
     override fun create(){
 
-        db.execSQL("create table $T_NAME (${BaseColumns._ID} Integer primary key autoincrement, $C_NAME text not null, $C_LOCAL Text not null ,$C_TYPE Text not null)")
+        db.execSQL("create table $T_NAME (${BaseColumns._ID} Integer primary key autoincrement, $C_NAME text not null, $C_ADDRESS Text not null ,$C_STORETYPE_ID Text not null, foreign key($C_STORETYPE_ID) references ${TDBStoreTypes.T_NAME} (${BaseColumns._ID}) on delete restrict)")
 
     }
 
@@ -27,9 +27,9 @@ class TDBStores (db: SQLiteDatabase) : TDB(db, T_NAME){
 
         const val T_NAME = "Stores"
         const val C_NAME = "Name"
-        const val C_LOCAL = "Local"
-        const val C_TYPE = "Type"
+        const val C_ADDRESS = "Address"
+        const val C_STORETYPE_ID = "Type"
 
-        val ALL_COLUMNS = arrayOf(BaseColumns._ID, C_NAME, C_LOCAL, C_TYPE)
+        val ALL_COLUMNS = arrayOf(BaseColumns._ID, C_NAME, C_ADDRESS, C_STORETYPE_ID)
     }
 }

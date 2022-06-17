@@ -4,12 +4,12 @@ import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
 
 /**
- * Funções para manipulaçao da tabela Types
+ * Funções para manipulaçao da tabela Game Types
  *
  * @param db Base de Dados a utilizar
  */
 
-class TDBTypes(db: SQLiteDatabase) : TDB(db, T_NAME) {
+class TDBGameTypes(db: SQLiteDatabase) : TDB(db, T_NAME) {
 
 
     /**
@@ -23,7 +23,7 @@ class TDBTypes(db: SQLiteDatabase) : TDB(db, T_NAME) {
     }
 
     /**
-     * Nome das colunas da tabela Types
+     * Nome das colunas da tabela Game Types
      */
     companion object{
 

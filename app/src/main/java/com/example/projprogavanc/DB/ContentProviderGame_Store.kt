@@ -135,8 +135,10 @@ class ContentProviderGame_Store: ContentProvider() {
             URI_STORE_SPECIFIC -> TDBStores(db).query(columns, "${BaseColumns._ID} = ?", arrayOf("${id}"), null, null, null)
             URI_GAME_STORE_SPECIFIC -> TDBGame_Store(db).query(columns, "rowid = ?", arrayOf("${id}"), null, null, null)
             URI_GAME_STORES_SPECIFIC -> TDBGame_Store(db).query(columns, selection, selArgs, null, null, sortOrder)
-            URI_TYPES -> TDBTypes(db).query(columns, selection, selArgs, null, null, sortOrder)
-            URI_TYPE_SPECIFIC -> TDBTypes(db).query(columns, "${BaseColumns._ID} = ?", arrayOf("${id}"), null, null, null)
+            URI_GAMETYPES -> TDBGameTypes(db).query(columns, selection, selArgs, null, null, sortOrder)
+            URI_GAMETYPE_SPECIFIC -> TDBGameTypes(db).query(columns, "${BaseColumns._ID} = ?", arrayOf("${id}"), null, null, null)
+            URI_STORETYPES -> TDBStoreTypes(db).query(columns, selection, selArgs, null, null, sortOrder)
+            URI_STORETYPE_SPECIFIC -> TDBStoreTypes(db).query(columns, "${BaseColumns._ID} = ?", arrayOf("${id}"), null, null, null)
             else -> null
         }
 
@@ -171,11 +173,13 @@ class ContentProviderGame_Store: ContentProvider() {
             URI_STORES -> "$MULTIPLE_ENTRIES/${TDBStores.T_NAME}"
             URI_GAME_STORES -> "$MULTIPLE_ENTRIES/${TDBGame_Store.T_NAME}"
             URI_GAME_STORES_SPECIFIC -> "$MULTIPLE_ENTRIES/${TDBGame_Store.T_NAME}"
-            URI_TYPES -> "$MULTIPLE_ENTRIES/${TDBTypes.T_NAME}"
+            URI_GAMETYPES -> "$MULTIPLE_ENTRIES/${TDBGameTypes.T_NAME}"
+            URI_STORETYPES -> "$MULTIPLE_ENTRIES/${TDBStoreTypes.T_NAME}"
             URI_GAME_SPECIFIC -> "$UNIQUE_ENTRY/${TDBGames.T_NAME}"
             URI_STORE_SPECIFIC -> "$UNIQUE_ENTRY/${TDBStores.T_NAME}"
             URI_GAME_STORE_SPECIFIC -> "$UNIQUE_ENTRY/${TDBGame_Store.T_NAME}"
-            URI_TYPE_SPECIFIC -> "$UNIQUE_ENTRY/${TDBTypes.T_NAME}"
+            URI_GAMETYPE_SPECIFIC -> "$UNIQUE_ENTRY/${TDBGameTypes.T_NAME}"
+            URI_STORETYPE_SPECIFIC -> "$UNIQUE_ENTRY/${TDBStoreTypes.T_NAME}"
 
             else -> null
         }
@@ -315,8 +319,11 @@ class ContentProviderGame_Store: ContentProvider() {
         const val URI_GAME_STORES_SPECIFIC = 3001
         const val URI_GAME_STORE_SPECIFIC = 4501
 
-        const val URI_TYPES = 6000
-        const val URI_TYPE_SPECIFIC = 6001
+        const val URI_GAMETYPES = 6000
+        const val URI_GAMETYPE_SPECIFIC = 6001
+
+        const val URI_STORETYPES = 6500
+        const val URI_STORETYPE_SPECIFIC = 6501
 
         const val UNIQUE_ENTRY = "vnd.android.cursor.item"
         const val MULTIPLE_ENTRIES = "vnd.android.cursor.dir"
@@ -332,8 +339,10 @@ class ContentProviderGame_Store: ContentProvider() {
             uriMatcher.addURI(AUTHORITY, TDBGame_Store.T_NAME, URI_GAME_STORES)
             uriMatcher.addURI(AUTHORITY, "${TDBGame_Store.T_NAME}/#", URI_GAME_STORES_SPECIFIC)
             uriMatcher.addURI(AUTHORITY, "${TDBGame_Store.T_NAME}/#", URI_GAME_STORE_SPECIFIC)
-            uriMatcher.addURI(AUTHORITY, TDBTypes.T_NAME, URI_TYPES)
-            uriMatcher.addURI(AUTHORITY,"${TDBTypes.T_NAME}/#", URI_TYPE_SPECIFIC)
+            uriMatcher.addURI(AUTHORITY, TDBGameTypes.T_NAME, URI_GAMETYPES)
+            uriMatcher.addURI(AUTHORITY,"${TDBGameTypes.T_NAME}/#", URI_GAMETYPE_SPECIFIC)
+            uriMatcher.addURI(AUTHORITY, TDBStoreTypes.T_NAME, URI_STORETYPES)
+            uriMatcher.addURI(AUTHORITY,"${TDBStoreTypes.T_NAME}/#", URI_STORETYPE_SPECIFIC)
 
             return uriMatcher
         }
