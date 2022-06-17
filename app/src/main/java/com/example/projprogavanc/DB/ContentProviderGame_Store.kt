@@ -166,9 +166,22 @@ class ContentProviderGame_Store: ContentProvider() {
      * @param uri the URI to query.
      * @return a MIME type string, or `null` if there is no type.
      */
-    override fun getType(uri: Uri): String? {
-        TODO("Not yet implemented")
-    }
+    override fun getType(uri: Uri): String? =
+        when(getUriMatcher().match(uri)){
+            URI_GAMES -> "$MULTIPLE_ENTRIES/${TDBGames.T_NAME}"
+            URI_STORES -> "$MULTIPLE_ENTRIES/${TDBStores.T_NAME}"
+            URI_GAME_STORES -> "$MULTIPLE_ENTRIES/${TDBGame_Store.T_NAME}"
+            URI_GAME_STORES_SPECIFIC -> "$MULTIPLE_ENTRIES/${TDBGame_Store.T_NAME}"
+            URI_TYPES -> "$MULTIPLE_ENTRIES/${TDBTypes.T_NAME}"
+            URI_GAME_SPECIFIC -> "$UNIQUE_ENTRY/${TDBGames.T_NAME}"
+            URI_STORE_SPECIFIC -> "$UNIQUE_ENTRY/${TDBStores.T_NAME}"
+            URI_GAME_STORE_SPECIFIC -> "$UNIQUE_ENTRY/${TDBGame_Store.T_NAME}"
+            URI_TYPE_SPECIFIC -> "$UNIQUE_ENTRY/${TDBTypes.T_NAME}"
+
+            else -> null
+        }
+
+
 
     /**
      * Implement this to handle requests to insert a new row. As a courtesy,
@@ -255,6 +268,9 @@ class ContentProviderGame_Store: ContentProvider() {
 
         const val URI_TYPES = 6000
         const val URI_TYPE_SPECIFIC = 6001
+
+        const val UNIQUE_ENTRY = "vnd.android.cursor.item"
+        const val MULTIPLE_ENTRIES = "vnd.android.cursor.dir"
 
         fun getUriMatcher(): UriMatcher{
 
