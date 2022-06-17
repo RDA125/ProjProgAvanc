@@ -6,9 +6,10 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.database.sqlite.SQLiteOpenHelper
 import android.net.Uri
+import android.provider.BaseColumns
 
 class ContentProviderGame_Store: ContentProvider() {
-    var db :DBOpenHelper? = null
+    var dbOpenHelper :DBOpenHelper? = null
 
     /**
      * Implement this to initialize your content provider on startup.
@@ -39,7 +40,7 @@ class ContentProviderGame_Store: ContentProvider() {
      */
     override fun onCreate(): Boolean {
 
-        db = DBOpenHelper(context)
+        dbOpenHelper = DBOpenHelper(context)
 
         return true
     }
@@ -112,13 +113,38 @@ class ContentProviderGame_Store: ContentProvider() {
      * @return a Cursor or `null`.
      */
     override fun query(
-        p0: Uri,
-        p1: Array<out String>?,
-        p2: String?,
-        p3: Array<out String>?,
-        p4: String?
+        uri: Uri,
+        projection: Array<out String>?,
+        selection: String?,
+        selectionArgs: Array<out String>?,
+        sortOrder: String?
     ): Cursor? {
-        TODO("Not yet implemented")
+        val db = dbOpenHelper!!.readableDatabase
+
+        requireNotNull(projection)
+        val columns = projection as Array<String>
+
+        val selArgs = selectionArgs as Array<String>?
+
+        val id = uri.lastPathSegment
+
+        val cursor = when(getUriMatcher().match(uri)){
+            URI_GAMES -> TDBGames(db).query(columns, selection, selArgs, null, null, sortOrder)
+            URI_STORES -> TDBStores(db).query(columns, selection, selArgs, null, null, sortOrder)
+            URI_GAME_STORES -> TDBGame_Store(db).query(columns, selection, selArgs, null, null, sortOrder)
+            URI_GAME_SPECIFIC -> TDBGames(db).query(columns, "${BaseColumns._ID} = ?", arrayOf("${id}"), null, null, null)
+            URI_STORE_SPECIFIC -> TDBStores(db).query(columns, "${BaseColumns._ID} = ?", arrayOf("${id}"), null, null, null)
+            URI_GAME_STORE_SPECIFIC -> TDBStores(db).query(columns, "rowid = ?", arrayOf("${id}"), null, null, null)
+            URI_GAME_STORES_SPECIFIC -> TDBStores(db).query(columns, selection, selArgs, null, null, sortOrder)
+            URI_TYPES -> TDBTypes(db).query(columns, selection, selArgs, null, null, sortOrder)
+            URI_TYPE_SPECIFIC -> TDBTypes(db).query(columns, "${BaseColumns._ID} = ?", arrayOf("${id}"), null, null, null)
+            else -> null
+        }
+
+        db.close()
+
+        return cursor
+
     }
 
     /**
@@ -217,14 +243,18 @@ class ContentProviderGame_Store: ContentProvider() {
     companion object{
         const val AUTHORITY = "com.example.projprogavanc.DB"
 
-        const val URI_GAMES = 100
-        const val URI_GAME_SPECIFIC = 101
+        const val URI_GAMES = 1000
+        const val URI_GAME_SPECIFIC = 1001
 
-        const val URI_STORES = 200
-        const val URI_STORE_SPECIFIC = 201
+        const val URI_STORES = 2000
+        const val URI_STORE_SPECIFIC = 2001
 
-        const val URI_GAME_STORES = 300
-        const val URI_GAME_STORE_SPECIFIC = 301
+        const val URI_GAME_STORES = 3000
+        const val URI_GAME_STORES_SPECIFIC = 3001
+        const val URI_GAME_STORE_SPECIFIC = 4501
+
+        const val URI_TYPES = 6000
+        const val URI_TYPE_SPECIFIC = 6001
 
         fun getUriMatcher(): UriMatcher{
 
@@ -235,7 +265,10 @@ class ContentProviderGame_Store: ContentProvider() {
             uriMatcher.addURI(AUTHORITY, TDBStores.T_NAME, URI_STORES)
             uriMatcher.addURI(AUTHORITY, "${TDBStores.T_NAME}/#", URI_STORE_SPECIFIC)
             uriMatcher.addURI(AUTHORITY, TDBGame_Store.T_NAME, URI_GAME_STORES)
+            uriMatcher.addURI(AUTHORITY, "${TDBGame_Store.T_NAME}/#", URI_GAME_STORES_SPECIFIC)
             uriMatcher.addURI(AUTHORITY, "${TDBGame_Store.T_NAME}/#", URI_GAME_STORE_SPECIFIC)
+            uriMatcher.addURI(AUTHORITY, TDBTypes.T_NAME, URI_TYPES)
+            uriMatcher.addURI(AUTHORITY,"${TDBTypes.T_NAME}/#", URI_TYPE_SPECIFIC)
 
             return uriMatcher
         }
