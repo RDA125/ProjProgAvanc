@@ -282,8 +282,25 @@ class ContentProviderGame_Store: ContentProvider() {
         selection: String?,
         selectionArgs: Array<out String>?
     ): Int {
-        TODO("Not yet implemented")
+        val db = dbOpenHelper!!.writableDatabase
+
+        requireNotNull(values)
+        val id = uri.lastPathSegment
+
+        val UpdatedEntries = when(getUriMatcher().match(uri)){
+
+            URI_GAME_SPECIFIC -> TDBGames(db).update(values,"${BaseColumns._ID} = ?", arrayOf("${id}"))
+            URI_STORE_SPECIFIC -> TDBStores(db).update(values,"${BaseColumns._ID} = ?", arrayOf("${id}"))
+            URI_GAME_STORE_SPECIFIC -> TDBGame_Store(db).update(values,"rowid = ?", arrayOf("${id}"))
+            else -> 0
+        }
+
+        db.close()
+
+        return UpdatedEntries
+        TODO("Check Interface and prepare user interface (fragments)")
     }
+
 
     companion object{
         const val AUTHORITY = "com.example.projprogavanc.DB"
