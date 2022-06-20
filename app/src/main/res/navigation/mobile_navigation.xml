@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_game_store"
         android:name="com.example.projprogavanc.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:label="@string/menu_game_store_list"
+        tools:layout="@layout/fragment_game_store_list" />
 
     <fragment
         android:id="@+id/nav_slideshow"
