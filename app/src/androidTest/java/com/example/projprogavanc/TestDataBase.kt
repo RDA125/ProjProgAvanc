@@ -345,8 +345,8 @@ class TestDataBase {
 
         val db = getWritableDB()
 
-        val StoreType =GameType("Digital")
-        insertGameType(db,StoreType)
+        val StoreType =StoreType("Digital")
+        insertStoreType(db,StoreType)
 
         val store = Store("Epic Games", "N/A", StoreType.id)
         insertStore(db, store)
@@ -369,8 +369,8 @@ class TestDataBase {
         val GameType =GameType("Digital")
         insertGameType(db,GameType)
 
-        val StoreType =GameType("Digital")
-        insertGameType(db,StoreType)
+        val StoreType =StoreType("Digital")
+        insertStoreType(db,StoreType)
 
         val game = Game("Don't Starve", GameType.id)
         insertGame(db, game)
@@ -436,8 +436,8 @@ class TestDataBase {
 
         val db = getWritableDB()
 
-        val StoreType =GameType("Digital")
-        insertGameType(db,StoreType)
+        val StoreType =StoreType("Digital")
+        insertStoreType(db,StoreType)
 
         val store = Store("Kinguin", "N/A", StoreType.id)
         insertStore(db, store)
@@ -471,8 +471,8 @@ class TestDataBase {
         val GameType =GameType("Digital")
         insertGameType(db,GameType)
 
-        val StoreType =GameType("Digital")
-        insertGameType(db,StoreType)
+        val StoreType =StoreType("Digital")
+        insertStoreType(db,StoreType)
 
         val game = Game("Unpacking",GameType.id)
         insertGame(db, game)
