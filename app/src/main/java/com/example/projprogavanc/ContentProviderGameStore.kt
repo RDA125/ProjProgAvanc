@@ -1,4 +1,4 @@
-package com.example.projprogavanc.DB.Interface
+package com.example.projprogavanc
 
 import android.content.ContentProvider
 import android.content.ContentValues
@@ -6,9 +6,8 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import android.provider.BaseColumns
-import com.example.projprogavanc.DB.*
 
-class ContentProviderGame_Store: ContentProvider() {
+class ContentProviderGameStore: ContentProvider() {
     var dbOpenHelper : DBOpenHelper? = null
 
     /**
@@ -305,7 +304,7 @@ class ContentProviderGame_Store: ContentProvider() {
 
 
     companion object{
-        private const val AUTHORITY = "com.example.projprogavanc.DB"
+        private const val AUTHORITY = "com.example.projprogavanc"
 
         private const val URI_GAMES = 1000
         private const val URI_GAME_SPECIFIC = 1001

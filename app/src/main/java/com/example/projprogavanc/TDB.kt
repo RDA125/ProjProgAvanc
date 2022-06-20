@@ -1,4 +1,4 @@
-package com.example.projprogavanc.DB
+package com.example.projprogavanc
 
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase

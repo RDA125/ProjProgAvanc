@@ -1,4 +1,4 @@
-package com.example.projprogavanc.DB
+package com.example.projprogavanc
 
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
@@ -21,6 +21,7 @@ class TDBGame_Store (db: SQLiteDatabase): TDB(db, T_NAME){
         db.execSQL("create table $T_NAME($C_GAME_ID Integer not null, $C_STORE_ID Integer not null, $C_PRECO Real not null, foreign key ($C_GAME_ID) references ${TDBGames.T_NAME}(${BaseColumns._ID})on delete restrict, foreign key ($C_STORE_ID) references ${TDBStores.T_NAME}(${BaseColumns._ID}) on delete restrict, primary key ($C_GAME_ID,$C_STORE_ID))")
 
     }
+
 
     /**
      * Nome das colunas da tabela Game_Store

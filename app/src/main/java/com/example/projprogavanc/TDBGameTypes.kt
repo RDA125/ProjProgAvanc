@@ -1,4 +1,4 @@
-package com.example.projprogavanc.DB
+package com.example.projprogavanc
 
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
@@ -28,8 +28,9 @@ class TDBGameTypes(db: SQLiteDatabase) : TDB(db, T_NAME) {
     companion object{
 
         const val T_NAME = "Types"
+        const val C_ID = "$T_NAME.${BaseColumns._ID}"
         const val C_TYPE = "Type"
 
-        val ALL_COLUMNS = arrayOf(BaseColumns._ID, C_TYPE)
+        val ALL_COLUMNS = arrayOf(C_ID, C_TYPE)
     }
 }

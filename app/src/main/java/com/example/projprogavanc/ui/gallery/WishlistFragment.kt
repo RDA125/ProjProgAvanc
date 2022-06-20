@@ -6,14 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.projprogavanc.DB.Interface.ContentProviderGame_Store
-import com.example.projprogavanc.DB.Interface.WishlistAdapter
-import com.example.projprogavanc.DB.TDBGame_Store
+import com.example.projprogavanc.ContentProviderGameStore
+import com.example.projprogavanc.WishlistAdapter
+import com.example.projprogavanc.TDBGame_Store
 import com.example.projprogavanc.databinding.FragmentGameStoreListBinding
 
 /**
@@ -34,17 +33,17 @@ class WishlistFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        ViewModelProvider(this).get(WishlistViewModel::class.java)
+    ): View? {
+        //ViewModelProvider(this).get(WishlistViewModel::class.java)
 
         _binding = FragmentGameStoreListBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        //val root: View = binding.root
 
         /*val textView: TextView = binding.textGallery
         galleryViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }*/
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -77,7 +76,7 @@ class WishlistFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         CursorLoader(
             requireContext(),
-            ContentProviderGame_Store.GAME_STORES_ADDRESS,
+            ContentProviderGameStore.GAME_STORES_ADDRESS,
             TDBGame_Store.ALL_COLUMNS,
             null,
             null,

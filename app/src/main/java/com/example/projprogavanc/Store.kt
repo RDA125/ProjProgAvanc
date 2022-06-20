@@ -1,4 +1,4 @@
-package com.example.projprogavanc.DB
+package com.example.projprogavanc
 
 import android.content.ContentValues
 import android.database.Cursor
@@ -28,7 +28,7 @@ data class Store(var name: String, var address: String, var type: Long, var id: 
     }
 
     companion object{
-        fun fromCursor(cursor: Cursor):Store{
+        fun fromCursor(cursor: Cursor): Store {
 
 
             val posId = cursor.getColumnIndex(BaseColumns._ID)

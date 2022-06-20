@@ -1,15 +1,10 @@
-package com.example.projprogavanc.DB.Interface
+package com.example.projprogavanc
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.projprogavanc.DB.TDBGame_Store
-import com.example.projprogavanc.DB.TDBGames
-import com.example.projprogavanc.DB.TDBStoreTypes
-import com.example.projprogavanc.DB.TDBStores
 
-class DBOpenHelper (context: Context?,
-): SQLiteOpenHelper(context, NAME, null, VERSION) {
+class DBOpenHelper (context: Context?): SQLiteOpenHelper(context, NAME, null, VERSION) {
     /**
      * Called when the database is created for the first time. This is where the
      * creation of tables and the initial population of the tables should happen.

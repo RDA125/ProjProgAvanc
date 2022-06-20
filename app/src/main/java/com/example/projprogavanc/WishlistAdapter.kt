@@ -1,12 +1,10 @@
-package com.example.projprogavanc.DB.Interface
+package com.example.projprogavanc
 
 import android.database.Cursor
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.projprogavanc.DB.Game_Store
-import com.example.projprogavanc.R
 import com.example.projprogavanc.ui.gallery.WishlistFragment
 
 class WishlistAdapter(val fragment : WishlistFragment) : RecyclerView.Adapter<WishlistAdapter.ViewHolderGameStore>() {

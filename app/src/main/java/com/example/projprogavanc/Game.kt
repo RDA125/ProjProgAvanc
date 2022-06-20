@@ -1,4 +1,4 @@
-package com.example.projprogavanc.DB
+package com.example.projprogavanc
 
 import android.content.ContentValues
 import android.database.Cursor
@@ -26,7 +26,7 @@ data class Game(var name: String, var type: Long, var id: Long = -1) {
     }
 
     companion object{
-        fun fromCursor(cursor: Cursor):Game{
+        fun fromCursor(cursor: Cursor): Game {
 
             val posId = cursor.getColumnIndex(BaseColumns._ID)
             val posName = cursor.getColumnIndex(TDBGames.C_NAME)

@@ -1,8 +1,7 @@
-package com.example.projprogavanc.DB
+package com.example.projprogavanc
 
 import android.content.ContentValues
 import android.database.Cursor
-import android.provider.BaseColumns
 
 /**
  * Class para item do tipo Game_Store
@@ -27,7 +26,7 @@ data class Game_Store(var preco: Double,var game_id :Long, var store_id :Long) {
     }
 
     companion object{
-        fun fromCursor(cursor: Cursor):Game_Store{
+        fun fromCursor(cursor: Cursor): Game_Store {
 
             val posPrice = cursor.getColumnIndex(TDBGame_Store.C_PRECO)
             val posGameId = cursor.getColumnIndex(TDBGame_Store.C_GAME_ID)
