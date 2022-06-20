@@ -1,4 +1,4 @@
-package com.example.projprogavanc.DB
+package com.example.projprogavanc.DB.Interface
 
 import android.content.ContentProvider
 import android.content.ContentValues
@@ -6,9 +6,10 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import android.provider.BaseColumns
+import com.example.projprogavanc.DB.*
 
 class ContentProviderGame_Store: ContentProvider() {
-    var dbOpenHelper :DBOpenHelper? = null
+    var dbOpenHelper : DBOpenHelper? = null
 
     /**
      * Implement this to initialize your content provider on startup.
@@ -141,8 +142,6 @@ class ContentProviderGame_Store: ContentProvider() {
             URI_STORETYPE_SPECIFIC -> TDBStoreTypes(db).query(columns, "${BaseColumns._ID} = ?", arrayOf("${id}"), null, null, null)
             else -> null
         }
-
-        db.close()
 
         return cursor
 
@@ -302,31 +301,37 @@ class ContentProviderGame_Store: ContentProvider() {
         db.close()
 
         return UpdatedEntries
-        TODO("Check Interface and prepare user interface (fragments)")
     }
 
 
     companion object{
-        const val AUTHORITY = "com.example.projprogavanc.DB"
+        private const val AUTHORITY = "com.example.projprogavanc.DB"
 
-        const val URI_GAMES = 1000
-        const val URI_GAME_SPECIFIC = 1001
+        private const val URI_GAMES = 1000
+        private const val URI_GAME_SPECIFIC = 1001
 
-        const val URI_STORES = 2000
-        const val URI_STORE_SPECIFIC = 2001
+        private const val URI_STORES = 2000
+        private const val URI_STORE_SPECIFIC = 2001
 
-        const val URI_GAME_STORES = 3000
-        const val URI_GAME_STORES_SPECIFIC = 3001
-        const val URI_GAME_STORE_SPECIFIC = 4501
+        private const val URI_GAME_STORES = 3000
+        private const val URI_GAME_STORES_SPECIFIC = 3001
+        private const val URI_GAME_STORE_SPECIFIC = 4501
 
-        const val URI_GAMETYPES = 6000
-        const val URI_GAMETYPE_SPECIFIC = 6001
+        private const val URI_GAMETYPES = 6000
+        private const val URI_GAMETYPE_SPECIFIC = 6001
 
-        const val URI_STORETYPES = 6500
-        const val URI_STORETYPE_SPECIFIC = 6501
+        private const val URI_STORETYPES = 6500
+        private const val URI_STORETYPE_SPECIFIC = 6501
 
-        const val UNIQUE_ENTRY = "vnd.android.cursor.item"
-        const val MULTIPLE_ENTRIES = "vnd.android.cursor.dir"
+        private const val UNIQUE_ENTRY = "vnd.android.cursor.item"
+        private const val MULTIPLE_ENTRIES = "vnd.android.cursor.dir"
+
+        private val BASE_ADDRESS = Uri.parse("content://$AUTHORITY")
+        val GAMES_ADDRESS = Uri.withAppendedPath(BASE_ADDRESS, TDBGames.T_NAME)
+        val STORES_ADDRESS = Uri.withAppendedPath(BASE_ADDRESS, TDBStores.T_NAME)
+        val GAME_STORES_ADDRESS = Uri.withAppendedPath(BASE_ADDRESS, TDBGame_Store.T_NAME)
+        val GAMETYPES_ADDRESS = Uri.withAppendedPath(BASE_ADDRESS, TDBGameTypes.T_NAME)
+        val STORETYPE_ADDRESS = Uri.withAppendedPath(BASE_ADDRESS, TDBStoreTypes.T_NAME)
 
         fun getUriMatcher(): UriMatcher{
 
