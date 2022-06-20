@@ -3,7 +3,9 @@ package com.example.projprogavanc.DB.Interface
 import android.database.Cursor
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projprogavanc.DB.Game_Store
 import com.example.projprogavanc.R
 import com.example.projprogavanc.ui.gallery.WishlistFragment
 
@@ -20,6 +22,20 @@ class WishlistAdapter(val fragment : WishlistFragment) : RecyclerView.Adapter<Wi
 
     class ViewHolderGameStore(itemGameStore : View) : RecyclerView.ViewHolder(itemGameStore){
 
+        val textViewGame = itemGameStore.findViewById<TextView>(R.id.txtViewGame)
+        val textViewStore = itemGameStore.findViewById<TextView>(R.id.txtViewStore)
+        val textViewPrice = itemGameStore.findViewById<TextView>(R.id.txtViewPrice)
+
+        var gameStore : Game_Store? = null
+            get() = field
+            set(values : Game_Store?){
+
+                field = values
+
+                textViewGame.text = "${gameStore?.game_id}"
+                textViewStore.text = "${gameStore?.store_id}"
+                textViewPrice.text = "${gameStore?.preco}"
+            }
     }
 
     /**
@@ -73,7 +89,8 @@ class WishlistAdapter(val fragment : WishlistFragment) : RecyclerView.Adapter<Wi
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: ViewHolderGameStore, position: Int) {
-        TODO("Not yet implemented")
+        cursor!!.moveToPosition(position)
+        holder.gameStore = Game_Store.fromCursor(cursor!!)
     }
 
     /**
