@@ -1,6 +1,8 @@
 package com.example.projprogavanc
 
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteQueryBuilder
 import android.provider.BaseColumns
 
 
@@ -20,6 +22,24 @@ class TDBGame_Store (db: SQLiteDatabase): TDB(db, T_NAME){
 
         db.execSQL("create table $T_NAME($C_GAME_ID Integer not null, $C_STORE_ID Integer not null, $C_PRECO Real not null, foreign key ($C_GAME_ID) references ${TDBGames.T_NAME}(${BaseColumns._ID})on delete restrict, foreign key ($C_STORE_ID) references ${TDBStores.T_NAME}(${BaseColumns._ID}) on delete restrict, primary key ($C_GAME_ID,$C_STORE_ID))")
 
+    }
+
+    override fun query(
+        columns: Array<String>,
+        selection: String?,
+        selectionArgs: Array<String>?,
+        groupBy: String?,
+        having: String?,
+        orderBy: String?
+    ): Cursor {
+
+        val queryBuilder = SQLiteQueryBuilder()
+
+        queryBuilder.tables = "$T_NAME inner join ${TDBGames.T_NAME} on $C_GAME_ID = ${TDBGames.C_ID} inner join ${TDBStores.T_NAME} on $C_STORE_ID = ${TDBStores.C_ID}"
+
+        //TODO("wait to finish queries")
+
+        return queryBuilder.query(db, columns, selection, selectionArgs, groupBy, having, orderBy)
     }
 
 
