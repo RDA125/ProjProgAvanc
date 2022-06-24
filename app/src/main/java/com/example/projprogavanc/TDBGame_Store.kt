@@ -35,9 +35,9 @@ class TDBGame_Store (db: SQLiteDatabase): TDB(db, T_NAME){
 
         val queryBuilder = SQLiteQueryBuilder()
 
-        queryBuilder.tables = "$T_NAME inner join ${TDBGames.T_NAME} on $C_GAME_ID = ${TDBGames.C_ID} inner join ${TDBStores.T_NAME} on $C_STORE_ID = ${TDBStores.C_ID}"
+        queryBuilder.tables = "$T_NAME inner join (${TDBGames.T_NAME} inner join ${TDBGameTypes.T_NAME} on ${TDBGames.C_GAMETYPE_ID} = ${TDBGameTypes.C_ID} ) on $C_GAME_ID = ${TDBGames.C_ID} inner join (${TDBStores.T_NAME} inner join ${TDBStoreTypes.T_NAME} on ${TDBStores.C_STORETYPE_ID} = ${TDBStoreTypes.C_ID}) on $C_STORE_ID = ${TDBStores.C_ID}"
 
-        //TODO("wait to finish queries")
+
 
         return queryBuilder.query(db, columns, selection, selectionArgs, groupBy, having, orderBy)
     }
@@ -53,6 +53,6 @@ class TDBGame_Store (db: SQLiteDatabase): TDB(db, T_NAME){
         const val C_GAME_ID = "Game_Id"
         const val C_STORE_ID = "Store_id"
 
-        val ALL_COLUMNS = arrayOf(C_GAME_ID, C_STORE_ID, C_PRECO)
+        val ALL_COLUMNS = arrayOf(C_GAME_ID, C_STORE_ID, C_PRECO, TDBGames.C_NAME, TDBGames.C_GAMETYPE_ID, TDBGameTypes.C_TYPE, TDBStores.C_NAME, TDBStores.C_ADDRESS, TDBStores.C_STORETYPE_ID, TDBStoreTypes.C_TYPE)
     }
 }

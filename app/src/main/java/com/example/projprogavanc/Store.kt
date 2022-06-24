@@ -14,14 +14,14 @@ import android.provider.BaseColumns
  *
  */
 
-data class Store(var name: String, var address: String, var type: Long, var id: Long = -1) {
+data class Store(var name: String, var address: String, var type: StoreType, var id: Long = -1) {
 
     fun toContentValues(): ContentValues {
 
         val values = ContentValues()
         values.put(TDBStores.C_NAME, name)
         values.put(TDBStores.C_ADDRESS, address)
-        values.put(TDBGames.C_GAMETYPE_ID, type)
+        values.put(TDBStores.C_STORETYPE_ID, type.id)
 
         return values
 
@@ -35,13 +35,16 @@ data class Store(var name: String, var address: String, var type: Long, var id: 
             val posName = cursor.getColumnIndex(TDBStores.C_NAME)
             val posAddress = cursor.getColumnIndex(TDBStores.C_ADDRESS)
             val posType = cursor.getColumnIndex(TDBStores.C_STORETYPE_ID)
+            val posTypeName = cursor.getColumnIndex(TDBStoreTypes.C_TYPE)
 
             val id = cursor.getLong(posId)
             val name = cursor.getString(posName)
             val address = cursor.getString(posAddress)
             val type = cursor.getLong(posType)
+            val typeName = cursor.getString(posTypeName)
 
-            return Store(name,address,type,id)
+            val storeType = StoreType(typeName, type)
+            return Store(name,address,storeType,id)
         }
 
     }

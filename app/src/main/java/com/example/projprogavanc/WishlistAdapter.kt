@@ -30,8 +30,8 @@ class WishlistAdapter(val fragment : WishlistFragment) : RecyclerView.Adapter<Wi
 
                 field = values
 
-                textViewGame.text = "${gameStore?.game_id}"
-                textViewStore.text = "${gameStore?.store_id}"
+                textViewGame.text = "${gameStore?.game?.name}"
+                textViewStore.text = "${gameStore?.store?.name}"
                 textViewPrice.text = "${gameStore?.preco}"
             }
     }

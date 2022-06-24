@@ -27,9 +27,9 @@ class TDBStoreTypes(db: SQLiteDatabase) : TDB(db, T_NAME) {
      */
     companion object{
 
-        const val T_NAME = "Types"
+        const val T_NAME = "Store_Types"
         const val C_ID = "$T_NAME.${BaseColumns._ID}"
-        const val C_TYPE = "Type"
+        const val C_TYPE = "SType"
 
         val ALL_COLUMNS = arrayOf(C_ID, C_TYPE)
     }

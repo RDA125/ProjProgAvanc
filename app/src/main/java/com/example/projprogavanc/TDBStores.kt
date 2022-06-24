@@ -35,7 +35,6 @@ class TDBStores (db: SQLiteDatabase) : TDB(db, T_NAME){
 
         queryBuilder.tables = "$T_NAME inner join ${TDBStoreTypes.T_NAME} on $C_STORETYPE_ID = ${TDBStoreTypes.C_ID} "
 
-        //TODO("wait to finish queries")
 
         return queryBuilder.query(db, columns, selection, selectionArgs, groupBy, having, orderBy)
     }
@@ -47,10 +46,10 @@ class TDBStores (db: SQLiteDatabase) : TDB(db, T_NAME){
 
         const val T_NAME = "Stores"
         const val C_ID = "$T_NAME.${BaseColumns._ID}"
-        const val C_NAME = "Name"
+        const val C_NAME = "StoreName"
         const val C_ADDRESS = "Address"
-        const val C_STORETYPE_ID = "Type"
+        const val C_STORETYPE_ID = "StoreType"
 
-        val ALL_COLUMNS = arrayOf(C_ID, C_NAME, C_ADDRESS, C_STORETYPE_ID)
+        val ALL_COLUMNS = arrayOf(C_ID, C_NAME, C_ADDRESS, C_STORETYPE_ID, TDBStoreTypes.C_TYPE)
     }
 }

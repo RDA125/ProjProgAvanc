@@ -17,8 +17,9 @@ class DBOpenHelper (context: Context?): SQLiteOpenHelper(context, NAME, null, VE
 
         TDBGames(db).create()
         TDBStores(db).create()
-        TDBGame_Store(db).create()
+        TDBGameTypes(db).create()
         TDBStoreTypes(db).create()
+        TDBGame_Store(db).create()
 
     }
 

@@ -13,13 +13,13 @@ import android.provider.BaseColumns
  *
  */
 
-data class Game(var name: String, var type: Long, var id: Long = -1) {
+data class Game(var name: String, var type: GameType, var id: Long = -1) {
 
     fun toContentValues(): ContentValues{
 
         val values = ContentValues()
         values.put(TDBGames.C_NAME, name)
-        values.put(TDBGames.C_GAMETYPE_ID, type)
+        values.put(TDBGames.C_GAMETYPE_ID, type.id)
 
         return values
 
@@ -31,12 +31,15 @@ data class Game(var name: String, var type: Long, var id: Long = -1) {
             val posId = cursor.getColumnIndex(BaseColumns._ID)
             val posName = cursor.getColumnIndex(TDBGames.C_NAME)
             val posType = cursor.getColumnIndex(TDBGames.C_GAMETYPE_ID)
+            val posTypeName = cursor.getColumnIndex(TDBGameTypes.C_TYPE)
 
             val id = cursor.getLong(posId)
             val name = cursor.getString(posName)
             val type = cursor.getLong(posType)
+            val typeName = cursor.getString(posTypeName)
 
-            return Game(name,type,id)
+            val gameType = GameType(typeName, type)
+            return Game(name,gameType,id)
         }
 
     }
