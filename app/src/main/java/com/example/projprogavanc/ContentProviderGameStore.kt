@@ -330,7 +330,7 @@ class ContentProviderGameStore: ContentProvider() {
         val STORES_ADDRESS = Uri.withAppendedPath(BASE_ADDRESS, TDBStores.T_NAME)
         val GAME_STORES_ADDRESS = Uri.withAppendedPath(BASE_ADDRESS, TDBGame_Store.T_NAME)
         val GAMETYPES_ADDRESS = Uri.withAppendedPath(BASE_ADDRESS, TDBGameTypes.T_NAME)
-        val STORETYPE_ADDRESS = Uri.withAppendedPath(BASE_ADDRESS, TDBStoreTypes.T_NAME)
+        val STORETYPES_ADDRESS = Uri.withAppendedPath(BASE_ADDRESS, TDBStoreTypes.T_NAME)
 
         fun getUriMatcher(): UriMatcher{
 
