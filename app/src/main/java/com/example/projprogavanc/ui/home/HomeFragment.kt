@@ -2,11 +2,13 @@ package com.example.projprogavanc.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.projprogavanc.R
 import com.example.projprogavanc.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -39,4 +41,11 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    fun processOptionMenu(item: MenuItem): Boolean =
+        when(item.itemId){
+            R.id.action_settings -> true
+            else -> false
+        }
+
 }

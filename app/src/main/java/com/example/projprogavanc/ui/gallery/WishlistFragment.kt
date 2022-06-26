@@ -3,6 +3,7 @@ package com.example.projprogavanc.ui.gallery
 import android.database.Cursor
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -148,6 +149,16 @@ class WishlistFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     override fun onLoaderReset(loader: Loader<Cursor>) {
         gameStoreAdapter.cursor = null
     }
+
+    fun processOptionMenu(item: MenuItem): Boolean =
+        when(item.itemId){
+            R.id.action_insert -> true
+            R.id.action_edit -> true
+            R.id.action_delete -> true
+            else -> false
+
+        }
+
 
     companion object{
 

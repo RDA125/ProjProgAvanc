@@ -2,6 +2,7 @@ package com.example.projprogavanc
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,6 +13,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.projprogavanc.databinding.ActivityMainBinding
+import com.example.projprogavanc.ui.gallery.WishlistFragment
+import com.example.projprogavanc.ui.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -59,6 +62,34 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(currMenuId, menu)
         this.menu = menu
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        val processedOption: Boolean
+
+        if(fragment is HomeFragment){
+
+            processedOption = (fragment as HomeFragment).processOptionMenu(item)
+
+        }else if(fragment is WishlistFragment){
+
+            processedOption = (fragment as WishlistFragment).processOptionMenu(item)
+
+        }else{
+
+            processedOption = false
+        }
+
+        if(processedOption){
+            return true
+        }
+
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {
