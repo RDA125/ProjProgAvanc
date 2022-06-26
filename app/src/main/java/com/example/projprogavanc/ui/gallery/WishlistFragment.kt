@@ -10,9 +10,7 @@ import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.projprogavanc.ContentProviderGameStore
-import com.example.projprogavanc.WishlistAdapter
-import com.example.projprogavanc.TDBGame_Store
+import com.example.projprogavanc.*
 import com.example.projprogavanc.databinding.FragmentGameStoreListBinding
 
 /**
@@ -54,6 +52,10 @@ class WishlistFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         _gameStoreAdapter = WishlistAdapter(this)
         binding.recViewWishlist.adapter = _gameStoreAdapter
         binding.recViewWishlist.layoutManager = LinearLayoutManager(requireContext())
+
+        val activity = activity as MainActivity
+        activity.fragment = this
+        activity.currMenuId = R.menu.list_menu
 
     }
 

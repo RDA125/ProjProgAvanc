@@ -59,7 +59,7 @@ class TestDataBase {
     @Before
     fun deleteDataBase() {
 
-        //appContext().deleteDatabase(DBOpenHelper.NAME)
+        appContext().deleteDatabase(DBOpenHelper.NAME)
 
     }
 

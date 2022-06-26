@@ -10,4 +10,8 @@
     <string name="menu_home">Home</string>
     <string name="menu_game_store_list">Wishlist</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="save_item">Save</string>
+    <string name="edit_item">Edit</string>
+    <string name="delete_item">Delete</string>
+    <string name="insert_item">Insert</string>
 </resources>
