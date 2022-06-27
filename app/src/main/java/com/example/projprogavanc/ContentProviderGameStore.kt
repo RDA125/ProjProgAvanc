@@ -134,7 +134,6 @@ class ContentProviderGameStore: ContentProvider() {
             URI_GAME_SPECIFIC -> TDBGames(db).query(columns, "${BaseColumns._ID} = ?", arrayOf("${id}"), null, null, null)
             URI_STORE_SPECIFIC -> TDBStores(db).query(columns, "${BaseColumns._ID} = ?", arrayOf("${id}"), null, null, null)
             URI_GAME_STORE_SPECIFIC -> TDBGame_Store(db).query(columns, "rowid = ?", arrayOf("${id}"), null, null, null)
-            URI_GAME_STORES_SPECIFIC -> TDBGame_Store(db).query(columns, selection, selArgs, null, null, sortOrder)
             URI_GAMETYPES -> TDBGameTypes(db).query(columns, selection, selArgs, null, null, sortOrder)
             URI_GAMETYPE_SPECIFIC -> TDBGameTypes(db).query(columns, "${BaseColumns._ID} = ?", arrayOf("${id}"), null, null, null)
             URI_STORETYPES -> TDBStoreTypes(db).query(columns, selection, selArgs, null, null, sortOrder)
@@ -170,7 +169,6 @@ class ContentProviderGameStore: ContentProvider() {
             URI_GAMES -> "$MULTIPLE_ENTRIES/${TDBGames.T_NAME}"
             URI_STORES -> "$MULTIPLE_ENTRIES/${TDBStores.T_NAME}"
             URI_GAME_STORES -> "$MULTIPLE_ENTRIES/${TDBGame_Store.T_NAME}"
-            URI_GAME_STORES_SPECIFIC -> "$MULTIPLE_ENTRIES/${TDBGame_Store.T_NAME}"
             URI_GAMETYPES -> "$MULTIPLE_ENTRIES/${TDBGameTypes.T_NAME}"
             URI_STORETYPES -> "$MULTIPLE_ENTRIES/${TDBStoreTypes.T_NAME}"
             URI_GAME_SPECIFIC -> "$UNIQUE_ENTRY/${TDBGames.T_NAME}"
@@ -313,7 +311,6 @@ class ContentProviderGameStore: ContentProvider() {
         private const val URI_STORE_SPECIFIC = 2001
 
         private const val URI_GAME_STORES = 3000
-        private const val URI_GAME_STORES_SPECIFIC = 3001
         private const val URI_GAME_STORE_SPECIFIC = 4501
 
         private const val URI_GAMETYPES = 6000
@@ -341,7 +338,6 @@ class ContentProviderGameStore: ContentProvider() {
             uriMatcher.addURI(AUTHORITY, TDBStores.T_NAME, URI_STORES)
             uriMatcher.addURI(AUTHORITY, "${TDBStores.T_NAME}/#", URI_STORE_SPECIFIC)
             uriMatcher.addURI(AUTHORITY, TDBGame_Store.T_NAME, URI_GAME_STORES)
-            uriMatcher.addURI(AUTHORITY, "${TDBGame_Store.T_NAME}/#", URI_GAME_STORES_SPECIFIC)
             uriMatcher.addURI(AUTHORITY, "${TDBGame_Store.T_NAME}/#", URI_GAME_STORE_SPECIFIC)
             uriMatcher.addURI(AUTHORITY, TDBGameTypes.T_NAME, URI_GAMETYPES)
             uriMatcher.addURI(AUTHORITY,"${TDBGameTypes.T_NAME}/#", URI_GAMETYPE_SPECIFIC)

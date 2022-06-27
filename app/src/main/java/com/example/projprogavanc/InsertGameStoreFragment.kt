@@ -144,6 +144,7 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
      * @param loader The Loader that is being reset.
      */
     override fun onLoaderReset(loader: Loader<Cursor>) {
+        if(_binding == null) return
         //TODO("Not yet implemented")
     }
 }
