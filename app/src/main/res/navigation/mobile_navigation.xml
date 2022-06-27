@@ -29,8 +29,8 @@
     <fragment
         android:id="@+id/InsertGameStoreFragment"
         android:name="com.example.projprogavanc.InsertGameStoreFragment"
-        android:label="fragment_insert_game_store"
-        tools:layout="@layout/fragment_insert_game_store" >
+        android:label="Add Game"
+        tools:layout="@layout/fragment_insert_game_store">
         <action
             android:id="@+id/action_InsertGameStoreFragment_to_nav_game_store"
             app:destination="@id/nav_game_store" />

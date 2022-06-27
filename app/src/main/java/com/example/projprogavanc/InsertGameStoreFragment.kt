@@ -9,17 +9,17 @@ import android.view.ViewGroup
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
-import com.example.projprogavanc.databinding.FragmentGameStoreListBinding
+import com.example.projprogavanc.databinding.FragmentInsertGameStoreBinding
 
 class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Cursor> {
-    private var _binding: FragmentGameStoreListBinding? = null
+    private var _binding:FragmentInsertGameStoreBinding? = null
 
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
 
-        _binding = FragmentGameStoreListBinding.inflate(inflater, container, false)
+        _binding = FragmentInsertGameStoreBinding.inflate(inflater, container, false)
 
         return binding.root
     }

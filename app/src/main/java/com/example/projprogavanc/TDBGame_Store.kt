@@ -38,7 +38,6 @@ class TDBGame_Store (db: SQLiteDatabase): TDB(db, T_NAME){
         queryBuilder.tables = "$T_NAME inner join (${TDBGames.T_NAME} inner join ${TDBGameTypes.T_NAME} on ${TDBGames.C_GAMETYPE_ID} = ${TDBGameTypes.C_ID} ) on $C_GAME_ID = ${TDBGames.C_ID} inner join (${TDBStores.T_NAME} inner join ${TDBStoreTypes.T_NAME} on ${TDBStores.C_STORETYPE_ID} = ${TDBStoreTypes.C_ID}) on $C_STORE_ID = ${TDBStores.C_ID}"
 
 
-
         return queryBuilder.query(db, columns, selection, selectionArgs, groupBy, having, orderBy)
     }
 
