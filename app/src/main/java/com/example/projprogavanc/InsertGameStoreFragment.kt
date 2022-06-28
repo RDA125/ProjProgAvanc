@@ -33,7 +33,7 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
 
         val activity = activity as MainActivity
         activity.fragment = this
-        //activity.currMenuId = R.menu.list_menu
+        activity.currMenuId = R.menu.edit_menu
 
     }
 
@@ -67,7 +67,7 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
                 TDBGameTypes.ALL_COLUMNS,
                 null,
                 null,
-                "${TDBGameTypes.C_TYPE}"
+                TDBGameTypes.C_TYPE
             )
 
         }else if(id == ID_LOADER_STORETYPE){
@@ -78,7 +78,7 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
                 TDBStoreTypes.ALL_COLUMNS,
                 null,
                 null,
-                "${TDBStoreTypes.C_TYPE}"
+                TDBStoreTypes.C_TYPE
 
             )
 
