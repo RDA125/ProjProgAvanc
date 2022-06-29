@@ -1,15 +1,21 @@
 package com.example.projprogavanc
 
+import android.content.ContentUris
 import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SimpleCursorAdapter
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
+import androidx.navigation.fragment.findNavController
 import com.example.projprogavanc.databinding.FragmentInsertGameStoreBinding
 
 class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Cursor> {
@@ -175,4 +181,113 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
         binding.spinnerGameType.adapter = null
         binding.spinnerStoreType.adapter = null
     }
+
+    fun processOptionMenu(item: MenuItem): Boolean =
+        when(item.itemId){
+            R.id.action_save ->{
+                save()
+                true
+            }
+            R.id.action_cancel ->{
+                backtoGameStoreList()
+                true
+            }
+            else -> false
+        }
+
+
+
+    private fun save() {
+
+        val gameName = binding.editTextGameName.text.toString()
+        if(gameName.isBlank()){
+            binding.editTextGameName.error = getString(R.string.GameName_error)
+            binding.editTextGameName.requestFocus()
+            return
+
+        }
+
+        val storeName = binding.editTextStoreName.text.toString()
+        if(storeName.isBlank()){
+            binding.editTextStoreName.error = getString(R.string.StoreName_error)
+            binding.editTextStoreName.requestFocus()
+            return
+
+        }
+
+        val storeAddress = binding.editTextStoreAddress.text.toString()
+        if(storeAddress.isBlank()){
+            binding.editTextStoreAddress.error = getString(R.string.StoreAddress_error)
+            binding.editTextStoreAddress.requestFocus()
+            return
+
+        }
+
+        val price = binding.editTextPrice.text.toString()
+        if(price.isBlank()){
+            binding.editTextPrice.error = getString(R.string.Price_error)
+            binding.editTextPrice.requestFocus()
+            return
+
+        }
+
+        val gameTypeid = binding.spinnerGameType.selectedItemId
+        if(gameTypeid == Spinner.INVALID_ROW_ID){
+            binding.textViewGameType.error = getString(R.string.GameType_error)
+            binding.spinnerGameType.requestFocus()
+            return
+
+        }
+
+        val storeTypeid = binding.spinnerStoreType.selectedItemId
+        if(storeTypeid == Spinner.INVALID_ROW_ID){
+            binding.textViewStoreType.error = getString(R.string.StoreType_error)
+            binding.spinnerStoreType.requestFocus()
+            return
+
+        }
+
+        val savedGameStore = insertGameStore(gameName,storeName,storeAddress,price,gameTypeid,storeTypeid)
+
+        if(savedGameStore){
+
+            Toast.makeText(requireContext(), R.string.SaveGameStore_success, Toast.LENGTH_LONG).show()
+            backtoGameStoreList()
+
+        }else{
+            Toast.makeText(requireContext(), R.string.SaveGameStore_error, Toast.LENGTH_LONG).show()
+
+        }
+    }
+
+    private fun insertGameStore(
+        gameName: String,
+        storeName: String,
+        storeAddress: String,
+        price: String,
+        gameTypeid: Long,
+        storeTypeid: Long
+    ):Boolean {
+
+        val game = Game(gameName,GameType("",gameTypeid))
+        val store = Store(storeName,storeAddress, StoreType("",storeTypeid))
+
+        val insertedGame = requireActivity().contentResolver.insert(ContentProviderGameStore.GAMES_ADDRESS, game.toContentValues())
+        val insertedStore = requireActivity().contentResolver.insert(ContentProviderGameStore.STORES_ADDRESS, store.toContentValues())
+
+
+        if((insertedGame == null) || (insertedStore == null)) return false
+
+        val gameStore = Game_Store(price.toDouble(),game,store)
+        val insertedGameStoreAddress = requireActivity().contentResolver.insert(ContentProviderGameStore.GAME_STORES_ADDRESS, gameStore.toContentValues())
+
+        return insertedGameStoreAddress != null
+
+    }
+
+
+    private fun backtoGameStoreList() {
+        findNavController().navigate(R.id.action_InsertGameStoreFragment_to_nav_game_store)
+    }
+
 }

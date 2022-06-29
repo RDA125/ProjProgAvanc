@@ -79,6 +79,10 @@ class MainActivity : AppCompatActivity() {
 
             processedOption = (fragment as WishlistFragment).processOptionMenu(item)
 
+        }else if(fragment is InsertGameStoreFragment){
+
+            processedOption = (fragment as InsertGameStoreFragment).processOptionMenu(item)
+
         }else{
 
             processedOption = false
@@ -95,5 +99,11 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    fun ShowEditDeleteOptions(show: Boolean){
+        menu!!.findItem(R.id.action_edit).setVisible(show)
+        menu!!.findItem(R.id.action_delete).setVisible(show)
+
     }
 }
