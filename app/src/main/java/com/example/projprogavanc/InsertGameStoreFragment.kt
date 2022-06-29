@@ -275,8 +275,10 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
         val insertedGame = requireActivity().contentResolver.insert(ContentProviderGameStore.GAMES_ADDRESS, game.toContentValues())
         val insertedStore = requireActivity().contentResolver.insert(ContentProviderGameStore.STORES_ADDRESS, store.toContentValues())
 
-
         if((insertedGame == null) || (insertedStore == null)) return false
+
+        game.id = ContentUris.parseId(insertedGame)
+        store.id = ContentUris.parseId(insertedStore)
 
         val gameStore = Game_Store(price.toDouble(),game,store)
         val insertedGameStoreAddress = requireActivity().contentResolver.insert(ContentProviderGameStore.GAME_STORES_ADDRESS, gameStore.toContentValues())
