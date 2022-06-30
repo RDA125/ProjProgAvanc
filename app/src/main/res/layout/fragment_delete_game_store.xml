@@ -20,7 +20,7 @@
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginLeft="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_8"
-            android:text="Delete Game"
+            android:text="@string/delete_game_title"
             android:textColor="@color/Red"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8"
-            android:text="Game"
+            android:text="@string/deleteGame_gameName"
             android:textColor="@color/deletegame_text"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -42,15 +42,15 @@
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginLeft="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_4"
-            android:text="TextView"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="Game" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8"
-            android:text="Store"
+            android:text="@string/DeleteGame_storeName"
             android:textColor="@color/deletegame_text"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -62,14 +62,14 @@
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginLeft="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_4"
-            android:text="TextView" />
+            tools:text="Store" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8"
-            android:text="Price"
+            android:text="@string/DeleteGame_price"
             android:textColor="@color/deletegame_text"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -81,6 +81,6 @@
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginLeft="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_4"
-            android:text="TextView" />
+            tools:text="0.00" />
     </LinearLayout>
 </FrameLayout>

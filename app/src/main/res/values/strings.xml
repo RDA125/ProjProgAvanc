@@ -33,4 +33,8 @@
     <string name="SaveGameStore_success">Game and Store Saved successfully</string>
     <string name="SaveGameStore_error">An error has occurred</string>
     <string name="deletegamstore_label">fragment_delete_game_store</string>
+    <string name="delete_game_title">Delete Game</string>
+    <string name="deleteGame_gameName">Game</string>
+    <string name="DeleteGame_storeName">Store</string>
+    <string name="DeleteGame_price">Price</string>
 </resources>
