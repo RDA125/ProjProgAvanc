@@ -43,8 +43,8 @@ class TestDataBase {
     }
 
     private fun insertGameStore(db: SQLiteDatabase, gameStore: Game_Store) {
-        val gameStore = TDBGame_Store(db).insert(gameStore.toContentValues())
-        assertNotEquals(-1,gameStore)
+        gameStore.id = TDBGame_Store(db).insert(gameStore.toContentValues())
+        assertNotEquals(-1,gameStore.id)
     }
     private fun insertGameType(db: SQLiteDatabase, type: GameType) {
         type.id = TDBGameTypes(db).insert(type.toContentValues())

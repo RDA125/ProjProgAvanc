@@ -2,6 +2,7 @@ package com.example.projprogavanc
 
 import android.content.ContentValues
 import android.database.Cursor
+import android.provider.BaseColumns
 import java.io.Serializable
 
 /**
@@ -13,7 +14,7 @@ import java.io.Serializable
  *
  */
 
-data class Game_Store(var preco: Double,var game :Game, var store :Store):Serializable {
+data class Game_Store(var preco: Double,var game :Game, var store :Store, var id:Long = -1):Serializable {
 
     fun toContentValues(): ContentValues {
 
@@ -29,6 +30,7 @@ data class Game_Store(var preco: Double,var game :Game, var store :Store):Serial
     companion object{
         fun fromCursor(cursor: Cursor): Game_Store {
 
+            val posRowId = cursor.getColumnIndex(BaseColumns._ID)
             val posPrice = cursor.getColumnIndex(TDBGame_Store.C_PRECO)
             val posGameId = cursor.getColumnIndex(TDBGame_Store.C_GAME_ID)
             val posStoreId = cursor.getColumnIndex(TDBGame_Store.C_STORE_ID)
@@ -41,6 +43,7 @@ data class Game_Store(var preco: Double,var game :Game, var store :Store):Serial
             val posGameTypeName = cursor.getColumnIndex(TDBGameTypes.C_TYPE)
             val posStoreTypeName = cursor.getColumnIndex(TDBStoreTypes.C_TYPE)
 
+            val rowid = cursor.getLong((posRowId))
             val price = cursor.getDouble(posPrice)
             val gameId = cursor.getLong(posGameId)
             val storeId = cursor.getLong(posStoreId)
@@ -59,7 +62,7 @@ data class Game_Store(var preco: Double,var game :Game, var store :Store):Serial
             val game = Game(gameName, gameType,gameId)
             val store = Store(storeName, storeAddress, storeType,storeId)
 
-            return Game_Store(price,game,store)
+            return Game_Store(price,game,store,rowid)
         }
 
     }

@@ -31,7 +31,7 @@
     <string name="GameType_error">Game type must be selected</string>
     <string name="StoreType_error">Store type must be selected</string>
     <string name="SaveGameStore_success">Game and Store Saved successfully</string>
-    <string name="SaveGameStore_error">An error has occurred</string>
+    <string name="General_error">An error has occurred</string>
     <string name="deletegamstore_label">fragment_delete_game_store</string>
     <string name="delete_game_title">Delete Game</string>
     <string name="deleteGame_gameName">Game</string>

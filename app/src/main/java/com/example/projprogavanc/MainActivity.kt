@@ -83,6 +83,10 @@ class MainActivity : AppCompatActivity() {
 
             processedOption = (fragment as InsertGameStoreFragment).processOptionMenu(item)
 
+        }else if(fragment is DeleteGameStoreFragment){
+
+            processedOption = (fragment as DeleteGameStoreFragment).processOptionMenu(item)
+
         }else{
 
             processedOption = false

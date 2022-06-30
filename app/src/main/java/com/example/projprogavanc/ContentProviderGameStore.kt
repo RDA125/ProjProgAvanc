@@ -293,7 +293,7 @@ class ContentProviderGameStore: ContentProvider() {
 
             URI_GAME_SPECIFIC -> TDBGames(db).update(values,"${BaseColumns._ID} = ?", arrayOf("${id}"))
             URI_STORE_SPECIFIC -> TDBStores(db).update(values,"${BaseColumns._ID} = ?", arrayOf("${id}"))
-            URI_GAME_STORE_SPECIFIC -> TDBGame_Store(db).update(values,"rowid = ?", arrayOf("${id}"))
+            URI_GAME_STORE_SPECIFIC -> TDBGame_Store(db).update(values,"${BaseColumns._ID} = ?", arrayOf("${id}"))
             else -> 0
         }
 

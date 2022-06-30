@@ -2,7 +2,6 @@ package com.example.projprogavanc
 
 import android.content.ContentUris
 import android.database.Cursor
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -255,7 +254,7 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
             backtoGameStoreList()
 
         }else{
-            Toast.makeText(requireContext(), R.string.SaveGameStore_error, Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), R.string.General_error, Toast.LENGTH_LONG).show()
 
         }
     }
@@ -283,7 +282,12 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
         val gameStore = Game_Store(price.toDouble(),game,store)
         val insertedGameStoreAddress = requireActivity().contentResolver.insert(ContentProviderGameStore.GAME_STORES_ADDRESS, gameStore.toContentValues())
 
-        return insertedGameStoreAddress != null
+        gameStore.id = ContentUris.parseId(insertedGameStoreAddress!!)
+
+        if(insertedGameStoreAddress == null) return false
+        gameStore.id = ContentUris.parseId(insertedGameStoreAddress)
+
+        return true
 
     }
 
