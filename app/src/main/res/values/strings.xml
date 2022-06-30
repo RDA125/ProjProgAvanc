@@ -37,4 +37,5 @@
     <string name="deleteGame_gameName">Game</string>
     <string name="DeleteGame_storeName">Store</string>
     <string name="DeleteGame_price">Price</string>
+    <string name="delete_text">Delete</string>
 </resources>
