@@ -3,6 +3,7 @@ package com.example.projprogavanc
 import android.content.ContentValues
 import android.database.Cursor
 import android.provider.BaseColumns
+import java.io.Serializable
 
 /**
  * Class para item do tipo Game
@@ -13,7 +14,7 @@ import android.provider.BaseColumns
  *
  */
 
-data class Game(var name: String, var type: GameType, var id: Long = -1) {
+data class Game(var name: String, var type: GameType, var id: Long = -1): Serializable {
 
     fun toContentValues(): ContentValues{
 

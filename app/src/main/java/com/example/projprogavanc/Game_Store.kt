@@ -2,6 +2,7 @@ package com.example.projprogavanc
 
 import android.content.ContentValues
 import android.database.Cursor
+import java.io.Serializable
 
 /**
  * Class para item do tipo Game_Store
@@ -12,7 +13,7 @@ import android.database.Cursor
  *
  */
 
-data class Game_Store(var preco: Double,var game :Game, var store :Store) {
+data class Game_Store(var preco: Double,var game :Game, var store :Store):Serializable {
 
     fun toContentValues(): ContentValues {
 

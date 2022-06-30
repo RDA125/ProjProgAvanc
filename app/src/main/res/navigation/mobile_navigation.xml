@@ -12,13 +12,16 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_game_store"
+        android:id="@+id/NavGameStore"
         android:name="com.example.projprogavanc.ui.gallery.WishlistFragment"
         android:label="@string/menu_game_store_list"
         tools:layout="@layout/fragment_game_store_list" >
         <action
             android:id="@+id/action_nav_game_store_to_InsertGameStoreFragment"
             app:destination="@id/InsertGameStoreFragment" />
+        <action
+            android:id="@+id/action_nav_game_store_to_deleteGameStoreFragment"
+            app:destination="@id/DeleteGameStoreFragment" />
     </fragment>
 
     <fragment
@@ -33,6 +36,18 @@
         tools:layout="@layout/fragment_insert_game_store">
         <action
             android:id="@+id/action_InsertGameStoreFragment_to_nav_game_store"
-            app:destination="@id/nav_game_store" />
+            app:destination="@id/NavGameStore" />
+    </fragment>
+    <fragment
+        android:id="@+id/DeleteGameStoreFragment"
+        android:name="com.example.projprogavanc.DeleteGameStoreFragment"
+        android:label="@string/deletegamstore_label"
+        tools:layout="@layout/fragment_delete_game_store">
+        <action
+            android:id="@+id/action_deleteGameStoreFragment_to_nav_game_store"
+            app:destination="@id/NavGameStore" />
+        <argument
+            android:name="GameStore"
+            app:argType="com.example.projprogavanc.Game_Store" />
     </fragment>
 </navigation>

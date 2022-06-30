@@ -14,7 +14,7 @@
     <string name="edit_item">Edit</string>
     <string name="delete_item">Delete</string>
     <string name="insert_item">Insert</string>
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="game_type_spinner">Game Type</string>
     <string name="store_type_spinner">Store Type</string>
@@ -32,4 +32,5 @@
     <string name="StoreType_error">Store type must be selected</string>
     <string name="SaveGameStore_success">Game and Store Saved successfully</string>
     <string name="SaveGameStore_error">An error has occurred</string>
+    <string name="deletegamstore_label">fragment_delete_game_store</string>
 </resources>

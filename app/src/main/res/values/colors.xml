@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="Nav_sidebar">#2E57BF</color>
     <color name="bar_main">#0B39AE</color>
+    <color name="Red">#F73022</color>
+    <color name="deletegame_text">#2851E4</color>
 </resources>
