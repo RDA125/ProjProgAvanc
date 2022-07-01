@@ -17,7 +17,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="game_type_spinner">Game Type</string>
+    <string name="game_spinner">Game</string>
     <string name="store_type_spinner">Store Type</string>
+    <string name="store_spinner">Store</string>
     <string name="game_name_input">Game Name</string>
     <string name="store_name_input">Store Name</string>
     <string name="store_address_input">Store Address</string>
@@ -28,8 +30,10 @@
     <string name="StoreName_error">Store name is required</string>
     <string name="StoreAddress_error">Store address is required</string>
     <string name="Price_error">Price is required</string>
-    <string name="GameType_error">Game type must be selected</string>
+    <string name="GameSpin_error">Game must be selected</string>
+    <string name="GameType_error">Game Type must be selected</string>
     <string name="StoreType_error">Store type must be selected</string>
+    <string name="StoreSpin_error">Store must be selected</string>
     <string name="SaveGameStore_success">Game and Store Saved successfully</string>
     <string name="General_error">An error has occurred</string>
     <string name="deletegamstore_label">fragment_delete_game_store</string>

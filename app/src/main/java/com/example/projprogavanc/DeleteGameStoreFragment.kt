@@ -91,7 +91,6 @@ class DeleteGameStoreFragment : Fragment() {
 
         Toast.makeText(requireContext(), "Game Store connection successfully deleted", Toast.LENGTH_LONG).show()
         backtoGameStoreList()
-        //TODO("Prepare insert/ Delete Game and store interfaces and change gamestore interface.")
     }
 
 

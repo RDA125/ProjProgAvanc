@@ -2,6 +2,7 @@ package com.example.projprogavanc
 
 import android.content.ContentUris
 import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -33,8 +34,8 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        LoaderManager.getInstance(this).initLoader(ID_LOADER_GAMETYPE, null, this)
-        LoaderManager.getInstance(this).initLoader(ID_LOADER_STORETYPE, null, this)
+        LoaderManager.getInstance(this).initLoader(ID_LOADER_GAME, null, this)
+        LoaderManager.getInstance(this).initLoader(ID_LOADER_STORE, null, this)
 
         val activity = activity as MainActivity
         activity.fragment = this
@@ -48,8 +49,8 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
     }
 
     companion object {
-        const val ID_LOADER_GAMETYPE = 0
-        const val ID_LOADER_STORETYPE = 1
+        const val ID_LOADER_GAME = 0
+        const val ID_LOADER_STORE = 1
     }
 
     /**
@@ -65,25 +66,25 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
         var loader: Loader<Cursor>? = null
 
-        if(id == ID_LOADER_GAMETYPE){
+        if(id == ID_LOADER_GAME){
             loader = CursorLoader(
                 requireContext(),
-                ContentProviderGameStore.GAMETYPES_ADDRESS,
+                ContentProviderGameStore.GAMES_ADDRESS,
                 TDBGameTypes.ALL_COLUMNS,
                 null,
                 null,
-                TDBGameTypes.C_TYPE
+                TDBGames.C_NAME
             )
 
-        }else if(id == ID_LOADER_STORETYPE){
+        }else if(id == ID_LOADER_STORE){
 
             loader = CursorLoader(
                 requireContext(),
-                ContentProviderGameStore.STORETYPES_ADDRESS,
+                ContentProviderGameStore.STORES_ADDRESS,
                 TDBStoreTypes.ALL_COLUMNS,
                 null,
                 null,
-                TDBStoreTypes.C_TYPE
+                TDBStores.C_NAME
 
             )
 
@@ -137,29 +138,29 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
      */
     override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor?) {
 
-        if(loader.id == ID_LOADER_GAMETYPE){
-            val adapterGameType = SimpleCursorAdapter(
+        if(loader.id == ID_LOADER_GAME){
+            val adapterGame = SimpleCursorAdapter(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
                 data,
-                arrayOf(TDBGameTypes.C_TYPE),
+                arrayOf(TDBGames.C_NAME),
                 intArrayOf(android.R.id.text1),
                 0
             )
 
-            binding.spinnerGameType.adapter = adapterGameType
+            binding.spinnerGame.adapter = adapterGame
 
-        }else if(loader.id == ID_LOADER_STORETYPE){
-            val adapterStoreType = SimpleCursorAdapter(
+        }else if(loader.id == ID_LOADER_STORE){
+            val adapterStore = SimpleCursorAdapter(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
                 data,
-                arrayOf(TDBStoreTypes.C_TYPE),
+                arrayOf(TDBStores.C_NAME),
                 intArrayOf(android.R.id.text1),
                 0
             )
 
-            binding.spinnerStoreType.adapter = adapterStoreType
+            binding.spinnerStore.adapter = adapterStore
         }
 
 
@@ -177,8 +178,8 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
      */
     override fun onLoaderReset(loader: Loader<Cursor>) {
         if(_binding == null) return
-        binding.spinnerGameType.adapter = null
-        binding.spinnerStoreType.adapter = null
+        binding.spinnerGame.adapter = null
+        binding.spinnerStore.adapter = null
     }
 
     fun processOptionMenu(item: MenuItem): Boolean =
@@ -198,26 +199,18 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
 
     private fun save() {
 
-        val gameName = binding.editTextGameName.text.toString()
-        if(gameName.isBlank()){
-            binding.editTextGameName.error = getString(R.string.GameName_error)
-            binding.editTextGameName.requestFocus()
+        val gameId = binding.spinnerGame.selectedItemId
+        if(gameId == Spinner.INVALID_ROW_ID){
+            binding.textViewGame.error = getString(R.string.GameSpin_error)
+            binding.spinnerGame.requestFocus()
             return
 
         }
 
-        val storeName = binding.editTextStoreName.text.toString()
-        if(storeName.isBlank()){
-            binding.editTextStoreName.error = getString(R.string.StoreName_error)
-            binding.editTextStoreName.requestFocus()
-            return
-
-        }
-
-        val storeAddress = binding.editTextStoreAddress.text.toString()
-        if(storeAddress.isBlank()){
-            binding.editTextStoreAddress.error = getString(R.string.StoreAddress_error)
-            binding.editTextStoreAddress.requestFocus()
+        val storeId = binding.spinnerStore.selectedItemId
+        if(storeId == Spinner.INVALID_ROW_ID){
+            binding.textViewStore.error = getString(R.string.StoreSpin_error)
+            binding.spinnerStore.requestFocus()
             return
 
         }
@@ -230,23 +223,7 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
 
         }
 
-        val gameTypeid = binding.spinnerGameType.selectedItemId
-        if(gameTypeid == Spinner.INVALID_ROW_ID){
-            binding.textViewGameType.error = getString(R.string.GameType_error)
-            binding.spinnerGameType.requestFocus()
-            return
-
-        }
-
-        val storeTypeid = binding.spinnerStoreType.selectedItemId
-        if(storeTypeid == Spinner.INVALID_ROW_ID){
-            binding.textViewStoreType.error = getString(R.string.StoreType_error)
-            binding.spinnerStoreType.requestFocus()
-            return
-
-        }
-
-        val savedGameStore = insertGameStore(gameName,storeName,storeAddress,price,gameTypeid,storeTypeid)
+        val savedGameStore = insertGameStore(gameId,storeId,price)
 
         if(savedGameStore){
 
@@ -260,31 +237,24 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
     }
 
     private fun insertGameStore(
-        gameName: String,
-        storeName: String,
-        storeAddress: String,
-        price: String,
-        gameTypeid: Long,
-        storeTypeid: Long
+        gameId: Long,
+        storeId: Long,
+        price: String
     ):Boolean {
 
-        val game = Game(gameName,GameType("",gameTypeid))
-        val store = Store(storeName,storeAddress, StoreType("",storeTypeid))
+        val game = Uri.withAppendedPath(ContentProviderGameStore.GAMES_ADDRESS, gameId.toString())
+        val store =Uri.withAppendedPath(ContentProviderGameStore.STORES_ADDRESS, storeId.toString())
 
-        val insertedGame = requireActivity().contentResolver.insert(ContentProviderGameStore.GAMES_ADDRESS, game.toContentValues())
-        val insertedStore = requireActivity().contentResolver.insert(ContentProviderGameStore.STORES_ADDRESS, store.toContentValues())
+        val SelectedGame = requireActivity().contentResolver.query(game,TDBGames.ALL_COLUMNS,null,null,null)
+        val SelectedStore = requireActivity().contentResolver.query(store,TDBStores.ALL_COLUMNS,null,null,null)
 
-        if((insertedGame == null) || (insertedStore == null)) return false
+        if((SelectedGame == null) || (SelectedStore == null)) return false
 
-        game.id = ContentUris.parseId(insertedGame)
-        store.id = ContentUris.parseId(insertedStore)
+        //TODO("Verify if a Game Store with same data already exists in the table if so return false")
 
-        val gameStore = Game_Store(price.toDouble(),game,store)
-        val insertedGameStoreAddress = requireActivity().contentResolver.insert(ContentProviderGameStore.GAME_STORES_ADDRESS, gameStore.toContentValues())
+        val gameStore = Game_Store(price.toDouble(),Game.fromCursor(SelectedGame),Store.fromCursor(SelectedStore))
+        val insertedGameStoreAddress = requireActivity().contentResolver.insert(ContentProviderGameStore.GAME_STORES_ADDRESS, gameStore.toContentValues()) ?: return false
 
-        gameStore.id = ContentUris.parseId(insertedGameStoreAddress!!)
-
-        if(insertedGameStoreAddress == null) return false
         gameStore.id = ContentUris.parseId(insertedGameStoreAddress)
 
         return true
