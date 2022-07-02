@@ -46,7 +46,7 @@ class DBOpenHelper (context: Context?): SQLiteOpenHelper(context, NAME, null, VE
      * @param newVersion The new database version.
      */
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        TODO("Not yet implemented")
+
     }
 
     companion object{

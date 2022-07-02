@@ -19,6 +19,15 @@ import com.example.projprogavanc.databinding.FragmentGameStoreListBinding
  * [Fragment] that will show the clients wishlist (Game_store table values)
  */
 class WishlistFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
+    var selectedGameStore: GameStore? = null
+        get() = field
+        set(value){
+
+            field = value
+            (requireActivity() as MainActivity).ShowEditDeleteOptions(value != null)
+
+        }
+
 
     private var _binding: FragmentGameStoreListBinding? = null
     private var _gameStoreAdapter : WishlistAdapter? = null
@@ -155,11 +164,15 @@ class WishlistFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     fun processOptionMenu(item: MenuItem): Boolean =
         when(item.itemId){
             R.id.action_insert -> {
-                findNavController().navigate(R.id.action_nav_game_store_to_InsertGameStoreFragment)
+                findNavController().navigate(R.id.action_wishlist_to_InsertGameStoreFragment)
                 true
             }
             R.id.action_edit -> true
-            R.id.action_delete -> true
+            R.id.action_delete -> {
+                val action = WishlistFragmentDirections.actionWishlistToDeleteWishlistItem(selectedGameStore!!)
+                findNavController().navigate(action)
+                true
+            }
             else -> false
 
         }

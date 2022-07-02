@@ -42,7 +42,7 @@ class TestDataBase {
         assertNotEquals(-1, store.id)
     }
 
-    private fun insertGameStore(db: SQLiteDatabase, gameStore: Game_Store) {
+    private fun insertGameStore(db: SQLiteDatabase, gameStore: GameStore) {
         gameStore.id = TDBGame_Store(db).insert(gameStore.toContentValues())
         assertNotEquals(-1,gameStore.id)
     }
@@ -199,7 +199,7 @@ class TestDataBase {
         val store = Store("Epic Games", "N/A", storeType)
         insertStore(db, store)
 
-        val gameStore = Game_Store(29.99, game, store)
+        val gameStore = GameStore(29.99, game, store)
         insertGameStore(db, gameStore)
 
         db.close()
@@ -291,10 +291,10 @@ class TestDataBase {
         val store2 = Store("Epic Games", "N/A", storeType)
         insertStore(db, store2)
 
-        val gameStore = Game_Store(14.99, game, store1)
+        val gameStore = GameStore(14.99, game, store1)
         insertGameStore(db, gameStore)
 
-        val gameStore2 = Game_Store(14.99, game, store2)
+        val gameStore2 = GameStore(14.99, game, store2)
         insertGameStore(db, gameStore2)
 
         gameStore2.preco = 19.99
@@ -376,7 +376,7 @@ class TestDataBase {
         insertStore(db, store1)
 
 
-        val gameStore = Game_Store(8.19, game, store1)
+        val gameStore = GameStore(8.19, game, store1)
         insertGameStore(db, gameStore)
 
 
@@ -477,7 +477,7 @@ class TestDataBase {
         val store = Store("Steam","N/A",storeType)
         insertStore(db, store)
 
-        val gameStore = Game_Store(19.99, game, store)
+        val gameStore = GameStore(19.99, game, store)
         insertGameStore(db,gameStore)
 
         val cursor = TDBGame_Store(db).query(
@@ -490,13 +490,23 @@ class TestDataBase {
 
         )
 
+        /*val cursor = TDBGame_Store(db).query(
+            TDBGame_Store.ALL_COLUMNS,
+            "${TDBGame_Store.C_ID} = ?",
+            arrayOf("${gameStore.id}"),
+            null,
+            null,
+            null
+
+        )*/
+
         assertEquals(1, cursor.count)
 
         assertTrue(cursor.moveToNext())
+        cursor.columnNames[0] = "_id" //This a compromise until i find a better solution
+        val gameStoreDB = GameStore.fromCursor(cursor)
 
-        val GameStoreDB = Game_Store.fromCursor(cursor)
-
-        assertEquals(gameStore, GameStoreDB)
+        assertEquals(gameStore, gameStoreDB)
 
         db.close()
     }

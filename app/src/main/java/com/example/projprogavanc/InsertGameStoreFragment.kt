@@ -70,7 +70,7 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
             loader = CursorLoader(
                 requireContext(),
                 ContentProviderGameStore.GAMES_ADDRESS,
-                TDBGameTypes.ALL_COLUMNS,
+                TDBGames.ALL_COLUMNS,
                 null,
                 null,
                 TDBGames.C_NAME
@@ -81,7 +81,7 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
             loader = CursorLoader(
                 requireContext(),
                 ContentProviderGameStore.STORES_ADDRESS,
-                TDBStoreTypes.ALL_COLUMNS,
+                TDBStores.ALL_COLUMNS,
                 null,
                 null,
                 TDBStores.C_NAME
@@ -245,14 +245,14 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
         val game = Uri.withAppendedPath(ContentProviderGameStore.GAMES_ADDRESS, gameId.toString())
         val store =Uri.withAppendedPath(ContentProviderGameStore.STORES_ADDRESS, storeId.toString())
 
-        val SelectedGame = requireActivity().contentResolver.query(game,TDBGames.ALL_COLUMNS,null,null,null)
-        val SelectedStore = requireActivity().contentResolver.query(store,TDBStores.ALL_COLUMNS,null,null,null)
+        val SelectedGame = requireActivity().contentResolver.query(game,TDBGames.ALL_COLUMNS,"${TDBGames.C_ID}",arrayOf(gameId.toString()),null)
+        val SelectedStore = requireActivity().contentResolver.query(store,TDBStores.ALL_COLUMNS,"${TDBStores.C_ID}",arrayOf(storeId.toString()),null)
 
         if((SelectedGame == null) || (SelectedStore == null)) return false
 
         //TODO("Verify if a Game Store with same data already exists in the table if so return false")
 
-        val gameStore = Game_Store(price.toDouble(),Game.fromCursor(SelectedGame),Store.fromCursor(SelectedStore))
+        val gameStore = GameStore(price.toDouble(),Game.fromCursor(SelectedGame),Store.fromCursor(SelectedStore))
         val insertedGameStoreAddress = requireActivity().contentResolver.insert(ContentProviderGameStore.GAME_STORES_ADDRESS, gameStore.toContentValues()) ?: return false
 
         gameStore.id = ContentUris.parseId(insertedGameStoreAddress)
@@ -263,7 +263,7 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
 
 
     private fun backtoGameStoreList() {
-        findNavController().navigate(R.id.action_InsertGameStoreFragment_to_nav_game_store)
+        findNavController().navigate(R.id.action_InsertGameStoreFragment_to_wishlist)
     }
 
 }

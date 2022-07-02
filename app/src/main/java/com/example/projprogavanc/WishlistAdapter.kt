@@ -24,9 +24,9 @@ class WishlistAdapter(val fragment : WishlistFragment) : RecyclerView.Adapter<Wi
         val textViewStore = itemGameStore.findViewById<TextView>(R.id.txtViewStore)
         val textViewPrice = itemGameStore.findViewById<TextView>(R.id.txtViewPrice)
 
-        var gameStore : Game_Store? = null
+        var gameStore : GameStore? = null
             get() = field
-            set(values : Game_Store?){
+            set(values : GameStore?){
 
                 field = values
 
@@ -88,7 +88,7 @@ class WishlistAdapter(val fragment : WishlistFragment) : RecyclerView.Adapter<Wi
      */
     override fun onBindViewHolder(holder: ViewHolderGameStore, position: Int) {
         cursor!!.moveToPosition(position)
-        holder.gameStore = Game_Store.fromCursor(cursor!!)
+        holder.gameStore = GameStore.fromCursor(cursor!!)
     }
 
     /**

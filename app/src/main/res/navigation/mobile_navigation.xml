@@ -12,23 +12,23 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/NavGameStore"
+        android:id="@+id/Wishlist"
         android:name="com.example.projprogavanc.ui.gallery.WishlistFragment"
         android:label="@string/menu_game_store_list"
         tools:layout="@layout/fragment_game_store_list" >
         <action
-            android:id="@+id/action_nav_game_store_to_InsertGameStoreFragment"
+            android:id="@+id/action_wishlist_to_InsertGameStoreFragment"
             app:destination="@id/InsertGameStoreFragment" />
         <action
-            android:id="@+id/action_nav_game_store_to_deleteGameStoreFragment"
+            android:id="@+id/action_wishlist_to_deleteWishlist_Item"
             app:destination="@id/DeleteGameStoreFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/navGame"
         android:name="com.example.projprogavanc.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" >
+        tools:layout="@layout/fragment_game_list" >
         <action
             android:id="@+id/action_nav_slideshow_to_insertGameFragment"
             app:destination="@id/InsertGameFragment" />
@@ -39,8 +39,8 @@
         android:label="Add Game"
         tools:layout="@layout/fragment_insert_game_store">
         <action
-            android:id="@+id/action_InsertGameStoreFragment_to_nav_game_store"
-            app:destination="@id/NavGameStore" />
+            android:id="@+id/action_InsertGameStoreFragment_to_wishlist"
+            app:destination="@id/Wishlist" />
     </fragment>
     <fragment
         android:id="@+id/DeleteGameStoreFragment"
@@ -49,10 +49,10 @@
         tools:layout="@layout/fragment_delete_game_store">
         <action
             android:id="@+id/action_deleteGameStoreFragment_to_nav_game_store"
-            app:destination="@id/NavGameStore" />
+            app:destination="@id/Wishlist" />
         <argument
-            android:name="GameStore"
-            app:argType="com.example.projprogavanc.Game_Store" />
+            android:name="gamestore"
+            app:argType="com.example.projprogavanc.GameStore" />
     </fragment>
     <fragment
         android:id="@+id/InsertGameFragment"
@@ -61,7 +61,7 @@
         tools:layout="@layout/fragment_insert_game" >
         <action
             android:id="@+id/action_insertGameFragment_to_nav_slideshow"
-            app:destination="@id/nav_slideshow" />
+            app:destination="@id/navGame" />
     </fragment>
     <fragment
         android:id="@+id/InsertStoreFragment"
@@ -76,7 +76,7 @@
         android:id="@+id/navStore"
         android:name="com.example.projprogavanc.NavStore"
         android:label="fragment_nav_store"
-        tools:layout="@layout/fragment_nav_store" >
+        tools:layout="@layout/fragment_store_list" >
         <action
             android:id="@+id/action_navStore_to_insertStoreFragment"
             app:destination="@id/InsertStoreFragment" />

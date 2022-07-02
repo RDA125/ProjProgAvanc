@@ -19,7 +19,7 @@ class DeleteGameStoreFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private lateinit var gameStore: Game_Store
+    private lateinit var gameStore: GameStore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +39,7 @@ class DeleteGameStoreFragment : Fragment() {
         activity.fragment = this
         activity.currMenuId = R.menu.delete_menu
 
-        gameStore = DeleteGameStoreFragmentArgs.fromBundle(arguments!!).gameStore
+        gameStore = DeleteGameStoreFragmentArgs.fromBundle(arguments!!).gamestore
 
         binding.textViewGSGameName.text = gameStore.game.name
         binding.textViewGSStoreName.text = gameStore.store.name
@@ -95,6 +95,6 @@ class DeleteGameStoreFragment : Fragment() {
 
 
     private fun backtoGameStoreList() {
-        findNavController().navigate(R.id.action_InsertGameStoreFragment_to_nav_game_store)
+        findNavController().navigate(R.id.action_InsertGameStoreFragment_to_wishlist)
     }
 }

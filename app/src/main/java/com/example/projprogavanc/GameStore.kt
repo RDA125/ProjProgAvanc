@@ -11,10 +11,10 @@ import java.io.Serializable
  * @param preco -> Preço do jogo dependendo da loja
  * @param game -> onde vamos buscar o Id do jogo da tabela Games com o uso do inner join
  * @param store -> onde vamos buscar o Id Id da loja da tabela Stores com o uso do inner join
- *
+ * @param id -> Ajuda a identificar uma combinação Game Store
  */
 
-data class Game_Store(var preco: Double,var game :Game, var store :Store, var id:Long = -1):Serializable {
+data class GameStore(var preco: Double, var game :Game, var store :Store, var id: Long = -1):Serializable {
 
     fun toContentValues(): ContentValues {
 
@@ -28,9 +28,10 @@ data class Game_Store(var preco: Double,var game :Game, var store :Store, var id
     }
 
     companion object{
-        fun fromCursor(cursor: Cursor): Game_Store {
+        fun fromCursor(cursor: Cursor): GameStore {
+            cursor.columnNames[0] = "_id"
 
-            val posRowId = cursor.getColumnIndex(BaseColumns._ID)
+            val posId = cursor.getColumnIndex(BaseColumns._ID)
             val posPrice = cursor.getColumnIndex(TDBGame_Store.C_PRECO)
             val posGameId = cursor.getColumnIndex(TDBGame_Store.C_GAME_ID)
             val posStoreId = cursor.getColumnIndex(TDBGame_Store.C_STORE_ID)
@@ -43,7 +44,7 @@ data class Game_Store(var preco: Double,var game :Game, var store :Store, var id
             val posGameTypeName = cursor.getColumnIndex(TDBGameTypes.C_TYPE)
             val posStoreTypeName = cursor.getColumnIndex(TDBStoreTypes.C_TYPE)
 
-            val rowid = cursor.getLong((posRowId))
+            val id = cursor.getLong((posId))
             val price = cursor.getDouble(posPrice)
             val gameId = cursor.getLong(posGameId)
             val storeId = cursor.getLong(posStoreId)
@@ -62,7 +63,7 @@ data class Game_Store(var preco: Double,var game :Game, var store :Store, var id
             val game = Game(gameName, gameType,gameId)
             val store = Store(storeName, storeAddress, storeType,storeId)
 
-            return Game_Store(price,game,store,rowid)
+            return GameStore(price,game,store,id)
         }
 
     }
