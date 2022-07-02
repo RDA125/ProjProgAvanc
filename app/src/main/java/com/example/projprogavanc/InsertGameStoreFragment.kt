@@ -245,12 +245,15 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
         val game = Uri.withAppendedPath(ContentProviderGameStore.GAMES_ADDRESS, gameId.toString())
         val store =Uri.withAppendedPath(ContentProviderGameStore.STORES_ADDRESS, storeId.toString())
 
-        val SelectedGame = requireActivity().contentResolver.query(game,TDBGames.ALL_COLUMNS,"${TDBGames.C_ID}",arrayOf(gameId.toString()),null)
-        val SelectedStore = requireActivity().contentResolver.query(store,TDBStores.ALL_COLUMNS,"${TDBStores.C_ID}",arrayOf(storeId.toString()),null)
+        val SelectedGame = requireActivity().contentResolver.query(game,TDBGames.ALL_COLUMNS,"${TDBGames.C_ID} = ?",arrayOf(gameId.toString()),null)
+        val SelectedStore = requireActivity().contentResolver.query(store,TDBStores.ALL_COLUMNS,"${TDBStores.C_ID} = ?",arrayOf(storeId.toString()),null)
 
         if((SelectedGame == null) || (SelectedStore == null)) return false
 
         //TODO("Verify if a Game Store with same data already exists in the table if so return false")
+
+        assert(SelectedGame.moveToNext())
+        assert(SelectedStore.moveToNext())
 
         val gameStore = GameStore(price.toDouble(),Game.fromCursor(SelectedGame),Store.fromCursor(SelectedStore))
         val insertedGameStoreAddress = requireActivity().contentResolver.insert(ContentProviderGameStore.GAME_STORES_ADDRESS, gameStore.toContentValues()) ?: return false
