@@ -33,8 +33,6 @@ class DeleteGameStoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         val activity = requireActivity() as MainActivity
         activity.fragment = this
         activity.currMenuId = R.menu.delete_menu
@@ -95,6 +93,6 @@ class DeleteGameStoreFragment : Fragment() {
 
 
     private fun backtoGameStoreList() {
-        findNavController().navigate(R.id.action_InsertGameStoreFragment_to_wishlist)
+        findNavController().navigate(R.id.action_deleteGameStoreFragment_to_wishlist)
     }
 }

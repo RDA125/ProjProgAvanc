@@ -48,7 +48,7 @@
         android:label="@string/deletegamstore_label"
         tools:layout="@layout/fragment_delete_game_store">
         <action
-            android:id="@+id/action_deleteGameStoreFragment_to_nav_game_store"
+            android:id="@+id/action_deleteGameStoreFragment_to_wishlist"
             app:destination="@id/Wishlist" />
         <argument
             android:name="gamestore"

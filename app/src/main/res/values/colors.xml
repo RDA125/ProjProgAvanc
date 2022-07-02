@@ -11,4 +11,5 @@
     <color name="bar_main">#0B39AE</color>
     <color name="Red">#F73022</color>
     <color name="deletegame_text">#2851E4</color>
+    <color name="Selected">#16B9EA</color>
 </resources>

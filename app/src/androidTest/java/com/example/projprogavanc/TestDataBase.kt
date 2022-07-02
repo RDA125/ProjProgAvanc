@@ -43,8 +43,9 @@ class TestDataBase {
     }
 
     private fun insertGameStore(db: SQLiteDatabase, gameStore: GameStore) {
-        val gameStore = TDBGame_Store(db).insert(gameStore.toContentValues())
-        assertNotEquals(-1,gameStore)
+        val gamestore = TDBGame_Store(db).insert(gameStore.toContentValues())
+        gameStore.id = gamestore
+        assertNotEquals(-1,gamestore)
     }
     private fun insertGameType(db: SQLiteDatabase, type: GameType) {
         type.id = TDBGameTypes(db).insert(type.toContentValues())
@@ -503,7 +504,7 @@ class TestDataBase {
         assertEquals(1, cursor.count)
 
         assertTrue(cursor.moveToNext())
-       // cursor.columnNames[0] = "_id" //This a compromise until i find a better solution
+
         val gameStoreDB = GameStore.fromCursor(cursor)
 
         assertEquals(gameStore, gameStoreDB)

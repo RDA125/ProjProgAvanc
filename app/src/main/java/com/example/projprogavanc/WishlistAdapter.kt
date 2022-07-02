@@ -18,11 +18,19 @@ class WishlistAdapter(val fragment : WishlistFragment) : RecyclerView.Adapter<Wi
             }
         }
 
-    class ViewHolderGameStore(itemGameStore : View) : RecyclerView.ViewHolder(itemGameStore){
+    var viewHolderSelect: ViewHolderGameStore? = null
+
+    inner class ViewHolderGameStore(itemGameStore : View) : RecyclerView.ViewHolder(itemGameStore), View.OnClickListener {
 
         val textViewGame = itemGameStore.findViewById<TextView>(R.id.txtViewGame)
         val textViewStore = itemGameStore.findViewById<TextView>(R.id.txtViewStore)
         val textViewPrice = itemGameStore.findViewById<TextView>(R.id.txtViewPrice)
+
+        init{
+
+            itemGameStore.setOnClickListener(this)
+
+        }
 
         var gameStore : GameStore? = null
             get() = field
@@ -30,10 +38,30 @@ class WishlistAdapter(val fragment : WishlistFragment) : RecyclerView.Adapter<Wi
 
                 field = values
 
-                textViewGame.text = "${gameStore?.game?.name}"
-                textViewStore.text = "${gameStore?.store?.name}"
-                textViewPrice.text = "${gameStore?.preco}"
+                textViewGame.text = gameStore?.game?.name ?: ""
+                textViewStore.text = gameStore?.store?.name ?: ""
+                textViewPrice.text =gameStore?.preco?.toString() ?: ""
             }
+
+        /**
+         * Called when a view has been clicked.
+         *
+         * @param v The view that was clicked.
+         */
+        override fun onClick(v: View?) {
+            viewHolderSelect?.Deselect()
+            Select()
+        }
+
+        private fun Deselect(){
+            itemView.setBackgroundColor(R.color.white)
+        }
+
+        private fun Select(){
+            itemView.setBackgroundColor(R.color.Selected)
+            viewHolderSelect = this
+            fragment.selectedGameStore = gameStore
+        }
     }
 
     /**
