@@ -105,9 +105,9 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    fun ShowEditDeleteOptions(show: Boolean){
-        menu!!.findItem(R.id.action_edit).setVisible(show)
-        menu!!.findItem(R.id.action_delete).setVisible(show)
+    fun ShowEditDeleteOptions(showOption: Boolean){
+        menu!!.findItem(R.id.action_edit).setVisible(showOption)
+        menu!!.findItem(R.id.action_delete).setVisible(showOption)
 
     }
 }

@@ -8,13 +8,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.loader.app.LoaderManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projprogavanc.MainActivity
 import com.example.projprogavanc.R
-import com.example.projprogavanc.WishlistAdapter
 import com.example.projprogavanc.databinding.FragmentHomeBinding
-import com.example.projprogavanc.ui.gallery.WishlistFragment
 
 class HomeFragment : Fragment() {
 

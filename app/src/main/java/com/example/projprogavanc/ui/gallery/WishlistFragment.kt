@@ -22,9 +22,8 @@ class WishlistFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     var selectedGameStore: GameStore? = null
         get() = field
         set(value){
-
             field = value
-            (requireActivity() as MainActivity).ShowEditDeleteOptions(value != null)
+            (requireActivity() as MainActivity).ShowEditDeleteOptions(field != null)
 
         }
 

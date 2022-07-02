@@ -1,11 +1,12 @@
-package com.example.projprogavanc
+package com.example.projprogavanc.ui.gallery
 
 import android.database.Cursor
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.projprogavanc.ui.gallery.WishlistFragment
+import com.example.projprogavanc.GameStore
+import com.example.projprogavanc.R
 
 class WishlistAdapter(val fragment : WishlistFragment) : RecyclerView.Adapter<WishlistAdapter.ViewHolderGameStore>() {
 
@@ -34,9 +35,9 @@ class WishlistAdapter(val fragment : WishlistFragment) : RecyclerView.Adapter<Wi
 
         var gameStore : GameStore? = null
             get() = field
-            set(values : GameStore?){
+            set(value : GameStore?){
 
-                field = values
+                field = value
 
                 textViewGame.text = gameStore?.game?.name ?: ""
                 textViewStore.text = gameStore?.store?.name ?: ""
@@ -54,11 +55,11 @@ class WishlistAdapter(val fragment : WishlistFragment) : RecyclerView.Adapter<Wi
         }
 
         private fun Deselect(){
-            itemView.setBackgroundColor(R.color.white)
+            itemView.setBackgroundResource(R.color.white)
         }
 
         private fun Select(){
-            itemView.setBackgroundColor(R.color.Selected)
+            itemView.setBackgroundResource(R.color.Selected)
             viewHolderSelect = this
             fragment.selectedGameStore = gameStore
         }
@@ -88,7 +89,7 @@ class WishlistAdapter(val fragment : WishlistFragment) : RecyclerView.Adapter<Wi
      * @see .onBindViewHolder
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderGameStore {
-       val itemGameStore = fragment.layoutInflater.inflate(R.layout.game_store_item, parent, false)
+        val itemGameStore = fragment.layoutInflater.inflate(R.layout.game_store_item, parent, false)
 
         return ViewHolderGameStore(itemGameStore)
     }
