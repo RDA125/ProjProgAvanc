@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Red"
-    tools:context=".DeleteGameStoreFragment">
+    tools:context=".DeleteStoreFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,48 +20,29 @@
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginLeft="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_8"
-            android:text="@string/delete_gameStore_title"
+            android:text="@string/delete_game_title"
             android:textColor="@color/Red"
             android:textSize="20sp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8"
-            android:text="@string/deleteGameStore_gameName"
-            android:textColor="@color/deletegame_text"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textViewGSGameName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_8"
-            android:layout_marginLeft="@dimen/margin_8"
-            android:layout_marginTop="@dimen/margin_4"
-            android:textStyle="bold"
-            tools:text="Game" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8"
-            android:text="@string/DeleteGameStore_storeName"
+            android:text="@string/DeleteStore_Name"
             android:textColor="@color/deletegame_text"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textViewGSStoreName"
+            android:id="@+id/textViewStoreName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginLeft="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_4"
+            android:textStyle="bold"
             tools:text="Store" />
 
         <TextView
@@ -69,18 +50,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8"
-            android:text="@string/DeleteGameStore_price"
+            android:text="@string/delete_type"
             android:textColor="@color/deletegame_text"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textViewGSPrice"
+            android:id="@+id/textViewStoreType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginLeft="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_4"
-            tools:text="0.00" />
+            tools:text="Type" />
     </LinearLayout>
 </FrameLayout>

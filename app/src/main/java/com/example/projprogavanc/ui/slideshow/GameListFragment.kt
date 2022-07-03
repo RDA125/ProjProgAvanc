@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.projprogavanc.databinding.FragmentGameListBinding
 
-class SlideshowFragment : Fragment() {
+class GameListFragment : Fragment() {
 
     private var _binding: FragmentGameListBinding? = null
 
@@ -22,17 +21,15 @@ class SlideshowFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val slideshowViewModel =
-            ViewModelProvider(this).get(SlideshowViewModel::class.java)
+        //val slideshowViewModel = ViewModelProvider(this).get(GameListViewModel::class.java)
 
         _binding = FragmentGameListBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
 
         /*val textView: TextView = binding.textslide
         slideshowViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }*/
-        return root
     }
 
     override fun onDestroyView() {

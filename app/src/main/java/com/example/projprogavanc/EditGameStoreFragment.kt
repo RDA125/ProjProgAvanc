@@ -36,14 +36,12 @@ class EditGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Cursor>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         val activity = activity as MainActivity
         activity.fragment = this
         activity.currMenuId = R.menu.edit_menu
 
         if(arguments != null){
-            gameStore = EditGameStoreFragmentArgs.fromBundle(arguments!!).gameStore
+            gameStore = EditGameStoreFragmentArgs.fromBundle(arguments!!).gamestore
 
             if(gameStore != null){
                 binding.editTextPrice.setText(gameStore!!.preco.toString())

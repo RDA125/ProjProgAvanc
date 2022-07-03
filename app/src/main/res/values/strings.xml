@@ -36,10 +36,27 @@
     <string name="StoreSpin_error">Store must be selected</string>
     <string name="SaveGameStore_success">Game and Store Saved successfully</string>
     <string name="General_error">An error has occurred</string>
-    <string name="deletegamstore_label">fragment_delete_game_store</string>
+    <string name="deletegamestore_label">fragment_delete_game_store</string>
     <string name="delete_game_title">Delete Game</string>
-    <string name="deleteGame_gameName">Game</string>
-    <string name="DeleteGame_storeName">Store</string>
-    <string name="DeleteGame_price">Price</string>
+    <string name="deleteGameStore_gameName">Game</string>
+    <string name="deleteGame_Name">Game</string>
+    <string name="DeleteGameStore_storeName">Store</string>
+    <string name="DeleteStore_Name">Store</string>
+    <string name="DeleteGameStore_price">Price</string>
     <string name="delete_text">Delete</string>
+    <string name="menu_Games">Games</string>
+    <string name="menu_store">Stores</string>
+    <string name="insertGameStore_title">Insert Game Store Combination</string>
+    <string name="EditGameStore_title">Edit Game Store Combination</string>
+    <string name="delete_gameStore_title">Delete Game Store Combination</string>
+    <string name="delete_type">Type</string>
+    <string name="fragment_game_list">fragment_game_list</string>
+    <string name="fragment_store_list">fragment_store_list</string>
+    <string name="fragment_delete_game">fragment_delete_game</string>
+    <string name="fragment_insert_game">fragment_insert_game</string>
+    <string name="fragment_insert_store">fragment_insert_store</string>
+    <string name="fragment_delete_store">fragment_delete_store</string>
+    <string name="fragment_insert_gamestore">fragment_insert_gamestore</string>
+
+
 </resources>

@@ -3,7 +3,6 @@ package com.example.projprogavanc
 import android.content.ContentValues
 import android.database.Cursor
 import android.provider.BaseColumns
-import androidx.core.database.getLongOrNull
 import java.io.Serializable
 
 /**

@@ -17,35 +17,46 @@
         android:label="@string/menu_game_store_list"
         tools:layout="@layout/fragment_game_store_list" >
         <action
-            android:id="@+id/action_wishlist_to_InsertGameStoreFragment"
-            app:destination="@id/InsertGameStoreFragment" />
+            android:id="@+id/action_wishlist_to_EditGameStoreFragment"
+            app:destination="@id/EditGameStoreFragment" />
         <action
             android:id="@+id/action_wishlist_to_deleteWishlist_Item"
             app:destination="@id/DeleteGameStoreFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/navGame"
-        android:name="com.example.projprogavanc.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_game_list" >
+        android:id="@+id/GameList"
+        android:name="com.example.projprogavanc.ui.slideshow.GameListFragment"
+        android:label="@string/fragment_game_list"
+        tools:layout="@layout/fragment_game_list">
         <action
-            android:id="@+id/action_nav_slideshow_to_insertGameFragment"
-            app:destination="@id/InsertGameFragment" />
+            android:id="@+id/action_navGame_to_EditGameFragment"
+            app:destination="@id/EditGameFragment" >
+            <argument
+                android:name="Game" />
+        </action>
+        <action
+            android:id="@+id/action_GameList_to_deleteGameFragment"
+            app:destination="@id/deleteGameFragment" />
     </fragment>
     <fragment
-        android:id="@+id/InsertGameStoreFragment"
-        android:name="com.example.projprogavanc.InsertGameStoreFragment"
-        android:label="Add Game"
-        tools:layout="@layout/fragment_insert_game_store">
+        android:id="@+id/EditGameStoreFragment"
+        android:name="com.example.projprogavanc.EditGameStoreFragment"
+        android:label="@string/fragment_insert_gamestore"
+        tools:layout="@layout/fragment_edit_game_store">
         <action
-            android:id="@+id/action_InsertGameStoreFragment_to_wishlist"
+            android:id="@+id/action_EditGameStoreFragment_to_wishlist"
             app:destination="@id/Wishlist" />
+        <argument
+            android:name="gamestore"
+            app:argType="com.example.projprogavanc.GameStore"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/DeleteGameStoreFragment"
         android:name="com.example.projprogavanc.DeleteGameStoreFragment"
-        android:label="@string/deletegamstore_label"
+        android:label="@string/deletegamestore_label"
         tools:layout="@layout/fragment_delete_game_store">
         <action
             android:id="@+id/action_deleteGameStoreFragment_to_wishlist"
@@ -55,30 +66,56 @@
             app:argType="com.example.projprogavanc.GameStore" />
     </fragment>
     <fragment
-        android:id="@+id/InsertGameFragment"
-        android:name="com.example.projprogavanc.InsertGameFragment"
-        android:label="fragment_insert_game"
-        tools:layout="@layout/fragment_insert_game" >
+        android:id="@+id/EditGameFragment"
+        android:name="com.example.projprogavanc.EditGameFragment"
+        android:label="@string/fragment_insert_game"
+        tools:layout="@layout/fragment_edit_game">
         <action
-            android:id="@+id/action_insertGameFragment_to_nav_slideshow"
-            app:destination="@id/navGame" />
+            android:id="@+id/action_EditGameFragment_to_navGame"
+            app:destination="@id/GameList" />
     </fragment>
     <fragment
-        android:id="@+id/InsertStoreFragment"
-        android:name="com.example.projprogavanc.InsertStoreFragment"
-        android:label="fragment_insert_store"
-        tools:layout="@layout/fragment_insert_store" >
+        android:id="@+id/EditStoreFragment"
+        android:name="com.example.projprogavanc.EditStoreFragment"
+        android:label="@string/fragment_insert_store"
+        tools:layout="@layout/fragment_edit_store">
         <action
-            android:id="@+id/action_insertStoreFragment_to_navStore"
-            app:destination="@id/navStore" />
+            android:id="@+id/action_EditStoreFragment_to_navStore"
+            app:destination="@id/StoreList" />
     </fragment>
     <fragment
-        android:id="@+id/navStore"
-        android:name="com.example.projprogavanc.NavStore"
-        android:label="fragment_nav_store"
-        tools:layout="@layout/fragment_store_list" >
+        android:id="@+id/StoreList"
+        android:name="com.example.projprogavanc.StoreListFragment"
+        android:label="@string/fragment_store_list">
         <action
-            android:id="@+id/action_navStore_to_insertStoreFragment"
-            app:destination="@id/InsertStoreFragment" />
+            android:id="@+id/action_navStore_to_EditStoreFragment"
+            app:destination="@id/EditStoreFragment" />
+        <action
+            android:id="@+id/action_StoreList_to_deleteStoreFragment"
+            app:destination="@id/deleteStoreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteGameFragment"
+        android:name="com.example.projprogavanc.DeleteGameFragment"
+        android:label="@string/fragment_delete_game"
+        tools:layout="@layout/fragment_delete_game">
+        <action
+            android:id="@+id/action_deleteGameFragment_to_GameList"
+            app:destination="@id/GameList" />
+        <argument
+            android:name="Game"
+            app:argType="com.example.projprogavanc.Game" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteStoreFragment"
+        android:name="com.example.projprogavanc.DeleteStoreFragment"
+        android:label="@string/fragment_delete_store"
+        tools:layout="@layout/fragment_delete_store">
+        <action
+            android:id="@+id/action_deleteStoreFragment_to_StoreList"
+            app:destination="@id/StoreList" />
+        <argument
+            android:name="Store"
+            app:argType="com.example.projprogavanc.Store" />
     </fragment>
 </navigation>
