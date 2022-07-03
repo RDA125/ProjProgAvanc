@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import com.example.projprogavanc.databinding.ActivityMainBinding
 import com.example.projprogavanc.ui.gallery.WishlistFragment
 import com.example.projprogavanc.ui.home.HomeFragment
+import com.example.projprogavanc.ui.slideshow.GameListFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.Wishlist, R.id.navGame
+                R.id.nav_home, R.id.Wishlist, R.id.GameList, R.id.StoreList
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -79,14 +80,26 @@ class MainActivity : AppCompatActivity() {
 
             processedOption = (fragment as WishlistFragment).processOptionMenu(item)
 
-        }else if(fragment is InsertGameStoreFragment){
+        }else if(fragment is EditGameStoreFragment){
 
-            processedOption = (fragment as InsertGameStoreFragment).processOptionMenu(item)
+            processedOption = (fragment as EditGameStoreFragment).processOptionMenu(item)
 
         }else if(fragment is DeleteGameStoreFragment){
 
             processedOption = (fragment as DeleteGameStoreFragment).processOptionMenu(item)
 
+        }else if(fragment is GameListFragment){
+
+           // processedOption = (fragment as GameListFragment).processOptionMenu(item)
+            processedOption = false
+        }else if(fragment is EditGameFragment){
+
+            //processedOption = (fragment as EditGameFragment).processOptionMenu(item)
+            processedOption = false
+        }else if(fragment is DeleteGameFragment){
+
+           // processedOption = (fragment as DeleteGameFragment).processOptionMenu(item)
+            processedOption = false
         }else{
 
             processedOption = false
@@ -110,4 +123,10 @@ class MainActivity : AppCompatActivity() {
         menu!!.findItem(R.id.action_delete).setVisible(showOption)
 
     }
+
+    fun updateTitle(title: String) {
+        binding.appBarMain.toolbar.setTitle(title)
+    }
+
+
 }

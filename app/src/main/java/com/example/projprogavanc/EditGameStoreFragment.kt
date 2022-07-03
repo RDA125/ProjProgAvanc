@@ -16,17 +16,19 @@ import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.navigation.fragment.findNavController
-import com.example.projprogavanc.databinding.FragmentInsertGameStoreBinding
+import com.example.projprogavanc.databinding.FragmentEditGameStoreBinding
 
-class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Cursor> {
-    private var _binding:FragmentInsertGameStoreBinding? = null
+class EditGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Cursor> {
+    private var _binding:FragmentEditGameStoreBinding? = null
 
     private val binding get() = _binding!!
+
+    private var gameStore :GameStore? =null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
 
-        _binding = FragmentInsertGameStoreBinding.inflate(inflater, container, false)
+        _binding = FragmentEditGameStoreBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -34,13 +36,24 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        LoaderManager.getInstance(this).initLoader(ID_LOADER_GAME, null, this)
-        LoaderManager.getInstance(this).initLoader(ID_LOADER_STORE, null, this)
+
 
         val activity = activity as MainActivity
         activity.fragment = this
         activity.currMenuId = R.menu.edit_menu
 
+        if(arguments != null){
+            gameStore = EditGameStoreFragmentArgs.fromBundle(arguments!!).gameStore
+
+            if(gameStore != null){
+                binding.editTextPrice.setText(gameStore!!.preco.toString())
+
+            }
+
+        }
+
+        LoaderManager.getInstance(this).initLoader(ID_LOADER_GAME, null, this)
+        LoaderManager.getInstance(this).initLoader(ID_LOADER_STORE, null, this)
     }
 
     override fun onDestroyView() {
@@ -150,6 +163,8 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
 
             binding.spinnerGame.adapter = adapterGame
 
+            updateSelectedGame()
+
         }else if(loader.id == ID_LOADER_STORE){
             val adapterStore = SimpleCursorAdapter(
                 requireContext(),
@@ -161,9 +176,41 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
             )
 
             binding.spinnerStore.adapter = adapterStore
+            UpdateSelectedStore()
+
         }
 
 
+    }
+
+    private fun updateSelectedGame() {
+        if(gameStore == null) return
+
+        val gameId = gameStore!!.game.id
+
+        val lastGame = binding.spinnerGame.count - 1
+
+        for (i in 0..lastGame){
+            if(binding.spinnerGame.getItemIdAtPosition(i) == gameId) {
+                binding.spinnerGame.setSelection(i)
+                return
+            }
+        }
+    }
+
+    private fun UpdateSelectedStore() {
+        if(gameStore == null) return
+
+        val storeId = gameStore!!.store.id
+
+        val lastStore = binding.spinnerStore.count - 1
+
+        for (i in 0..lastStore){
+            if(binding.spinnerStore.getItemIdAtPosition(i) == storeId) {
+                binding.spinnerStore.setSelection(i)
+                return
+            }
+        }
     }
 
     /**
@@ -223,7 +270,14 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
 
         }
 
-        val savedGameStore = insertGameStore(gameId,storeId,price)
+        val savedGameStore =
+            if(gameStore == null){
+                insertGameStore(gameId,storeId,price)
+
+            }else{
+                editGameStore(gameId,storeId,price)
+            }
+
 
         if(savedGameStore){
 
@@ -234,6 +288,26 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
             Toast.makeText(requireContext(), R.string.General_error, Toast.LENGTH_LONG).show()
 
         }
+    }
+
+    private fun editGameStore(gameId: Long, storeId: Long, price: String): Boolean {
+        val game = Uri.withAppendedPath(ContentProviderGameStore.GAMES_ADDRESS, gameId.toString())
+        val store =Uri.withAppendedPath(ContentProviderGameStore.STORES_ADDRESS, storeId.toString())
+
+        val SelectedGame = requireActivity().contentResolver.query(game,TDBGames.ALL_COLUMNS,"${TDBGames.C_ID} = ?",arrayOf(gameId.toString()),null)
+        val SelectedStore = requireActivity().contentResolver.query(store,TDBStores.ALL_COLUMNS,"${TDBStores.C_ID} = ?",arrayOf(storeId.toString()),null)
+
+        if((SelectedGame == null) || (SelectedStore == null)) return false
+        assert(SelectedGame.moveToNext())
+        assert(SelectedStore.moveToNext())
+
+        val gameStore = GameStore(price.toDouble(),Game.fromCursor(SelectedGame),Store.fromCursor(SelectedStore))
+        val gameStoreAddress = Uri.withAppendedPath(ContentProviderGameStore.GAME_STORES_ADDRESS,"${this.gameStore!!.id}")
+
+        val UpdatedEntries = requireActivity().contentResolver.update(gameStoreAddress, gameStore.toContentValues(),null,null)
+
+        return UpdatedEntries == 1
+
     }
 
     private fun insertGameStore(
@@ -264,9 +338,8 @@ class InsertGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Curso
 
     }
 
-
     private fun backtoGameStoreList() {
-        findNavController().navigate(R.id.action_InsertGameStoreFragment_to_wishlist)
+        findNavController().navigate(R.id.action_EditGameStoreFragment_to_wishlist)
     }
 
 }

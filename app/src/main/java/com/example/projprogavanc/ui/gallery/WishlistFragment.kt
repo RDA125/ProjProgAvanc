@@ -27,7 +27,7 @@ class WishlistFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         }
 
-
+    //TODO("Don't forget about translations")
     private var _binding: FragmentGameStoreListBinding? = null
     private var _gameStoreAdapter : WishlistAdapter? = null
 
@@ -163,10 +163,17 @@ class WishlistFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     fun processOptionMenu(item: MenuItem): Boolean =
         when(item.itemId){
             R.id.action_insert -> {
-                findNavController().navigate(R.id.action_wishlist_to_InsertGameStoreFragment)
+                val action = WishlistFragmentDirections.actionWishlistToEditGameStoreFragment()
+                findNavController().navigate(action)
+                (requireActivity() as MainActivity).updateTitle(getString(R.string.insertGameStore_title))
                 true
             }
-            R.id.action_edit -> true
+            R.id.action_edit -> {
+                val action = WishlistFragmentDirections.actionWishlistToEditGameStoreFragment(selectedGameStore)
+                findNavController().navigate(action)
+                (requireActivity() as MainActivity).updateTitle(getString(R.string.EditGameStore_title))
+                true
+            }
             R.id.action_delete -> {
                 val action = WishlistFragmentDirections.actionWishlistToDeleteWishlistItem(selectedGameStore!!)
                 findNavController().navigate(action)
