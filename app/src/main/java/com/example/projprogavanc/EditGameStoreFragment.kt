@@ -337,6 +337,7 @@ class EditGameStoreFragment : Fragment(),  LoaderManager.LoaderCallbacks<Cursor>
     }
 
     private fun backtoGameStoreList() {
+        (requireActivity() as MainActivity).updateTitle(getString(R.string.Wishlist_title))
         findNavController().navigate(R.id.action_EditGameStoreFragment_to_wishlist)
     }
 

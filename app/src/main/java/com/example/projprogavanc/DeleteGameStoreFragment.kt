@@ -36,6 +36,7 @@ class DeleteGameStoreFragment : Fragment() {
         val activity = requireActivity() as MainActivity
         activity.fragment = this
         activity.currMenuId = R.menu.delete_menu
+        activity.updateTitle(getString(R.string.delete_gameStore))
 
         gameStore = DeleteGameStoreFragmentArgs.fromBundle(arguments!!).gamestore
 
@@ -43,6 +44,11 @@ class DeleteGameStoreFragment : Fragment() {
         binding.textViewGSStoreName.text = gameStore.store.name
         binding.textViewGSPrice.text = gameStore.preco.toString()
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     fun processOptionMenu(item: MenuItem): Boolean =
@@ -63,8 +69,8 @@ class DeleteGameStoreFragment : Fragment() {
         val alertdialog = AlertDialog.Builder(requireContext())
 
         alertdialog.apply {
-            setMessage(R.string.delete_game_title)
-            setMessage("Are you sure you want to delete this game?")
+            setMessage(getString(R.string.delete_gameStore))
+            setMessage(getString(R.string.delete_gamestore_question))
             setNegativeButton(
                 R.string.menu_cancel,
                 DialogInterface.OnClickListener { dialogInterface, i -> })
@@ -87,12 +93,13 @@ class DeleteGameStoreFragment : Fragment() {
 
         }
 
-        Toast.makeText(requireContext(), "Game Store connection successfully deleted", Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), getString(R.string.delete_gameStore_success), Toast.LENGTH_LONG).show()
         backtoGameStoreList()
     }
 
 
     private fun backtoGameStoreList() {
+        (requireActivity() as MainActivity).updateTitle(getString(R.string.Wishlist_title))
         findNavController().navigate(R.id.action_deleteGameStoreFragment_to_wishlist)
     }
 }
