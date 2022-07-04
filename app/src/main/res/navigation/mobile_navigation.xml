@@ -14,8 +14,7 @@
     <fragment
         android:id="@+id/Wishlist"
         android:name="com.example.projprogavanc.ui.gallery.WishlistFragment"
-        android:label="@string/menu_game_store_list"
-        tools:layout="@layout/fragment_game_store_list" >
+        tools:layout="@layout/fragment_game_store_list">
         <action
             android:id="@+id/action_wishlist_to_EditGameStoreFragment"
             app:destination="@id/EditGameStoreFragment" />
@@ -30,10 +29,8 @@
         android:label="@string/fragment_game_list"
         tools:layout="@layout/fragment_game_list">
         <action
-            android:id="@+id/action_navGame_to_EditGameFragment"
+            android:id="@+id/action_GameList_to_EditGameFragment"
             app:destination="@id/EditGameFragment" >
-            <argument
-                android:name="Game" />
         </action>
         <action
             android:id="@+id/action_GameList_to_deleteGameFragment"
@@ -42,21 +39,19 @@
     <fragment
         android:id="@+id/EditGameStoreFragment"
         android:name="com.example.projprogavanc.EditGameStoreFragment"
-        android:label="@string/fragment_insert_gamestore"
         tools:layout="@layout/fragment_edit_game_store">
         <action
             android:id="@+id/action_EditGameStoreFragment_to_wishlist"
             app:destination="@id/Wishlist" />
         <argument
             android:name="gamestore"
+            android:defaultValue="@null"
             app:argType="com.example.projprogavanc.GameStore"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/DeleteGameStoreFragment"
         android:name="com.example.projprogavanc.DeleteGameStoreFragment"
-        android:label="@string/deletegamestore_label"
         tools:layout="@layout/fragment_delete_game_store">
         <action
             android:id="@+id/action_deleteGameStoreFragment_to_wishlist"
@@ -71,8 +66,13 @@
         android:label="@string/fragment_insert_game"
         tools:layout="@layout/fragment_edit_game">
         <action
-            android:id="@+id/action_EditGameFragment_to_navGame"
+            android:id="@+id/action_EditGameFragment_to_GameList"
             app:destination="@id/GameList" />
+        <argument
+            android:name="game"
+            app:argType="com.example.projprogavanc.Game"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/EditStoreFragment"
@@ -103,7 +103,7 @@
             android:id="@+id/action_deleteGameFragment_to_GameList"
             app:destination="@id/GameList" />
         <argument
-            android:name="Game"
+            android:name="game"
             app:argType="com.example.projprogavanc.Game" />
     </fragment>
     <fragment

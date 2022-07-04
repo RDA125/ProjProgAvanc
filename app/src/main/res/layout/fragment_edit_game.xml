@@ -32,7 +32,7 @@
             android:text="@string/game_type_spinner" />
 
         <Spinner
-            android:id="@+id/spinnerGame"
+            android:id="@+id/spinnerGameType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"

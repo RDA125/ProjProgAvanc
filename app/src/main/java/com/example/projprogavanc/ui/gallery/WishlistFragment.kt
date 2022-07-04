@@ -66,6 +66,7 @@ class WishlistFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         val activity = activity as MainActivity
         activity.fragment = this
         activity.currMenuId = R.menu.list_menu
+        activity.updateTitle(getString(R.string.Wishlist_title))
 
     }
 
@@ -164,14 +165,14 @@ class WishlistFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         when(item.itemId){
             R.id.action_insert -> {
                 val action = WishlistFragmentDirections.actionWishlistToEditGameStoreFragment()
-                findNavController().navigate(action)
                 (requireActivity() as MainActivity).updateTitle(getString(R.string.insertGameStore_title))
+                findNavController().navigate(action)
                 true
             }
             R.id.action_edit -> {
                 val action = WishlistFragmentDirections.actionWishlistToEditGameStoreFragment(selectedGameStore)
-                findNavController().navigate(action)
                 (requireActivity() as MainActivity).updateTitle(getString(R.string.EditGameStore_title))
+                findNavController().navigate(action)
                 true
             }
             R.id.action_delete -> {

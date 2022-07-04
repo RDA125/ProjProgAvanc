@@ -50,13 +50,23 @@
     <string name="EditGameStore_title">Edit Game Store Combination</string>
     <string name="delete_gameStore_title">Delete Game Store Combination</string>
     <string name="delete_type">Type</string>
-    <string name="fragment_game_list">fragment_game_list</string>
-    <string name="fragment_store_list">fragment_store_list</string>
-    <string name="fragment_delete_game">fragment_delete_game</string>
-    <string name="fragment_insert_game">fragment_insert_game</string>
-    <string name="fragment_insert_store">fragment_insert_store</string>
-    <string name="fragment_delete_store">fragment_delete_store</string>
-    <string name="fragment_insert_gamestore">fragment_insert_gamestore</string>
+    <string name="fragment_game_list">Games</string>
+    <string name="fragment_store_list">Stores</string>
+    <string name="fragment_delete_game">Delete Game</string>
+    <string name="fragment_insert_game">Add Game</string>
+    <string name="fragment_insert_store">Add Store</string>
+    <string name="fragment_delete_store">Delete Store</string>
+    <string name="fragment_insert_gamestore">Add Combination</string>
+    <string name="name_error">A Name must be given</string>
+    <string name="Type_error">A Type must be selected</string>
+    <string name="InsertGame_title">Add a Game</string>
+    <string name="EditGame_title">Edit a Game</string>
+    <string name="delete_gameStore">Delete combination</string>
+    <string name="delete_gamestore_question">Are you sure you want to delete this combination?</string>
+    <string name="delete_game_question">Are you sure you want to delete this game?</string>
+    <string name="delete_gameStore_success">Combination successfully deleted</string>
+    <string name="delete_game_success">Game successfully deleted</string>
+    <string name="Wishlist_title">Wishlist</string>
 
 
 </resources>
