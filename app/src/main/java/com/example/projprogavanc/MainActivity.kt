@@ -90,16 +90,14 @@ class MainActivity : AppCompatActivity() {
 
         }else if(fragment is GameListFragment){
 
-           // processedOption = (fragment as GameListFragment).processOptionMenu(item)
-            processedOption = false
+            processedOption = (fragment as GameListFragment).processOptionMenu(item)
         }else if(fragment is EditGameFragment){
 
-            //processedOption = (fragment as EditGameFragment).processOptionMenu(item)
-            processedOption = false
+            processedOption = (fragment as EditGameFragment).processOptionMenu(item)
+
         }else if(fragment is DeleteGameFragment){
 
-           // processedOption = (fragment as DeleteGameFragment).processOptionMenu(item)
-            processedOption = false
+           processedOption = (fragment as DeleteGameFragment).processOptionMenu(item)
         }else{
 
             processedOption = false
