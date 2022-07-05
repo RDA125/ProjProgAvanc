@@ -21,6 +21,21 @@ class DBOpenHelper (context: Context?): SQLiteOpenHelper(context, NAME, null, VE
         TDBStoreTypes(db).create()
         TDBGame_Store(db).create()
 
+        val GameType1 = GameType("Digital")
+        val GameType2 = GameType("Physical")
+        val GameType3 = GameType("Collector's Edition")
+        val GameType4 = GameType("DLC")
+        val StoreType1 = StoreType("Digital")
+        val StoreType2 = StoreType("Physical")
+
+
+        GameType1.id = TDBGameTypes(db).insert(GameType1.toContentValues())
+        GameType2.id = TDBGameTypes(db).insert(GameType2.toContentValues())
+        GameType3.id = TDBGameTypes(db).insert(GameType3.toContentValues())
+        GameType4.id = TDBGameTypes(db).insert(GameType4.toContentValues())
+
+        StoreType1.id = TDBStoreTypes(db).insert(StoreType1.toContentValues())
+        StoreType2.id = TDBStoreTypes(db).insert(StoreType2.toContentValues())
     }
 
     /**

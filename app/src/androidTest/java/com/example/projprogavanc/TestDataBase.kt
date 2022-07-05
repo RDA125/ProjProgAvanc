@@ -134,7 +134,7 @@ class TestDataBase {
 
         val db = getWritableDB()
 
-        val type = StoreType("Pre-order")
+        val type = StoreType("Digital")
         insertStoreType(db, type)
 
         val cursor = TDBStoreTypes(db).query(
