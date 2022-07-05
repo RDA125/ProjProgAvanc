@@ -20,7 +20,7 @@
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginLeft="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_8"
-            android:text="@string/delete_game_title"
+            android:text="@string/delete_store_title"
             android:textColor="@color/Red"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -44,6 +44,26 @@
             android:layout_marginTop="@dimen/margin_4"
             android:textStyle="bold"
             tools:text="Store" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:text="@string/deleteStore_address"
+            android:textColor="@color/deletegame_text"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewStoreAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
+            android:layout_marginLeft="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_4"
+            android:textStyle="italic"
+            tools:text="URL" />
 
         <TextView
             android:id="@+id/textView6"

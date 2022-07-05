@@ -16,6 +16,7 @@ import com.example.projprogavanc.databinding.ActivityMainBinding
 import com.example.projprogavanc.ui.gallery.WishlistFragment
 import com.example.projprogavanc.ui.home.HomeFragment
 import com.example.projprogavanc.ui.slideshow.GameListFragment
+import com.example.projprogavanc.ui.storeList.StoreListFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -98,6 +99,16 @@ class MainActivity : AppCompatActivity() {
         }else if(fragment is DeleteGameFragment){
 
            processedOption = (fragment as DeleteGameFragment).processOptionMenu(item)
+        }else if(fragment is StoreListFragment){
+
+            processedOption = (fragment as StoreListFragment).processOptionMenu(item)
+        }else if(fragment is EditStoreFragment){
+
+            processedOption = (fragment as EditStoreFragment).processOptionMenu(item)
+
+        }else if(fragment is DeleteStoreFragment){
+
+            processedOption = (fragment as DeleteStoreFragment).processOptionMenu(item)
         }else{
 
             processedOption = false

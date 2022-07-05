@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8"
             android:hint="@string/store_name_input"
+            android:inputType="text"
             tools:ignore="TextContrastCheck" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -29,6 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/store_address_input"
+                android:inputType="text"
                 tools:ignore="TextContrastCheck" />
 
             <TextView

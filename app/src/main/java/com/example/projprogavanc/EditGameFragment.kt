@@ -210,16 +210,16 @@ class EditGameFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>{
 
         val savedGame =
             if(game == null){
-                insertGameStore(gameName,gameTypeId)
+                insertGame(gameName,gameTypeId)
 
             }else{
-                editGameStore(gameName,gameTypeId)
+                editGame(gameName,gameTypeId)
             }
 
 
         if(savedGame){
 
-            Toast.makeText(requireContext(), "Game Saved Successfully", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.save_game_success), Toast.LENGTH_LONG).show()
             backtoGameList()
 
         }else{
@@ -228,7 +228,7 @@ class EditGameFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>{
         }
     }
 
-    private fun editGameStore(gameName: String,gameTypeId: Long): Boolean {
+    private fun editGame(gameName: String,gameTypeId: Long): Boolean {
         val gameType = Uri.withAppendedPath(ContentProviderGameStore.GAMETYPES_ADDRESS, gameTypeId.toString())
 
         val SelectedGameType = requireActivity().contentResolver.query(gameType,TDBGameTypes.ALL_COLUMNS,"${TDBGameTypes.C_ID} = ?",arrayOf(gameTypeId.toString()),null)
@@ -245,7 +245,7 @@ class EditGameFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>{
 
     }
 
-    private fun insertGameStore(
+    private fun insertGame(
         gameName: String,
         gameTypeId: Long
     ):Boolean {
