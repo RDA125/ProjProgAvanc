@@ -11,7 +11,7 @@
         <item
             android:id="@+id/Wishlist"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_game_store_list" />
+            android:title="@string/Wishlist_title" />
         <item
             android:id="@+id/GameList"
             android:icon="@drawable/ic_menu_gallery"
